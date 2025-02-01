@@ -6,6 +6,8 @@ Balitour is your one-stop platform to explore the enchanting island of Bali, Ind
 
 ---
 
+> **DESIGN: **[﻿FIGMA](https://www.figma.com/design/KuUVxuNpsepejexonGWDFj/balitour?node-id=0-1&p=f&t=ACAAQg1QWrH5Ism5-0) 
+
 ## Main Features
 | USER | ADMIN |
 | ----- | ----- |
