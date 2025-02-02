@@ -42,6 +42,12 @@ export interface Story {
   body: string;
   readingTime: number;
   username: string;
+  _count: {
+    users_comment_stories: number;
+    users_like_stories: number;
+    users_save_stories: number;
+    users_view_stories: number;
+  };
   users_comment_stories: users_comment_stories[];
   users_like_stories: users_like_stories[];
   users_save_stories: users_save_stories[];

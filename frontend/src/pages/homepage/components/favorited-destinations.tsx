@@ -5,6 +5,7 @@ import {Destination} from "@/lib/types.ts";
 import DestinationCard from "@/components/ui/destination-card.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {ArrowRight} from "lucide-react";
+import {Link} from "react-router-dom";
 
 const FavoritedDestinations = () => {
   const [destinations, setDestinations] = useState([]);
@@ -22,7 +23,7 @@ const FavoritedDestinations = () => {
   }, [setLoading])
 
   return (
-    <div className="w-full py-20 px-4 flex justify-center items-center">
+    <div className="w-full py-10 px-4 flex justify-center items-center">
       <div className="w-full max-w-5xl gap-12 flex flex-col justify-start items-center">
         <Brand headline="Favorited Destinations" direction="col" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -32,7 +33,11 @@ const FavoritedDestinations = () => {
             )
           })}
         </div>
-        <Button>Load more Favorited Destination <ArrowRight /></Button>
+        <Button asChild>
+          <Link to={`/destinations`}>
+            Load more Favorited Destinations <ArrowRight/>
+          </Link>
+        </Button>
       </div>
     </div>
   );
