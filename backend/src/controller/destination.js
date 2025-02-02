@@ -21,7 +21,7 @@ class DestinationController {
   }
   static async gets(req, res, next) {
     try {
-      const { count, ...otherQueries } = req.query;
+      const { count, favorited, liked, commented, ...otherQueries } = req.query;
       if (count) {
         const parsedCount = parseInt(count, 10);
         if (isNaN(parsedCount) || parsedCount < 0) {
@@ -30,6 +30,33 @@ class DestinationController {
           });
         }
         otherQueries.count = parsedCount;
+      }
+      if (favorited) {
+        const parsedFavorited = parseInt(favorited, 10);
+        if (isNaN(parsedFavorited) || parsedFavorited < 0) {
+          return res.status(400).json({
+            error: "Invalid favorited parameter. It must be a non-negative integer.",
+          });
+        }
+        otherQueries.favorited = parsedFavorited;
+      }
+      if (liked) {
+        const parsedLiked = parseInt(liked, 10);
+        if (isNaN(parsedLiked) || parsedLiked < 0) {
+          return res.status(400).json({
+            error: "Invalid liked parameter. It must be a non-negative integer.",
+          });
+        }
+        otherQueries.liked = parsedLiked;
+      }
+      if (commented) {
+        const parsedCommented = parseInt(commented, 10);
+        if (isNaN(parsedCommented) || parsedCommented < 0) {
+          return res.status(400).json({
+            error: "Invalid commented parameter. It must be a non-negative integer.",
+          });
+        }
+        otherQueries.commented = parsedCommented;
       }
       const response = await DestinationService.gets(otherQueries);
       res.status(200).json({ data: response });

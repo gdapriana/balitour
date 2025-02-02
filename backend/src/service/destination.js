@@ -45,6 +45,7 @@ class DestinationService {
         _count: true,
         Category: true,
         District: true,
+        users_save_destinations: true
       },
       take: queries.count,
     });
