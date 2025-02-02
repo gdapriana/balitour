@@ -63,7 +63,7 @@ model Story {
   @@map("stories")
 }
 
-model Destination {
+model Culture {
   id                         String                       @id @default(auto()) @map("_id") @db.ObjectId
   createdAt                  DateTime                     @default(now())
   updatedAt                  DateTime                     @updatedAt

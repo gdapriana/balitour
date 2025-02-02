@@ -32,7 +32,7 @@ Story [icon: book, color: green] {
   username String
 }
 
-Destination [icon: map-pin, color: blue] {
+Culture [icon: map-pin, color: blue] {
   id String pk
   createdAt DateTime
   updatedAt DateTime
@@ -200,17 +200,17 @@ Story.slug > users_like_stories.storySlug
 Story.slug > users_save_stories.storySlug
 Story.slug > users_view_stories.storySlug
 
-Destination.slug > users_comment_destinations.destinationSlug
-Destination.slug > users_like_destinations.destinationSlug
-Destination.slug > users_save_destinations.destinationSlug
-Destination.slug > users_view_destinations.destinationSlug
+Culture.slug > users_comment_destinations.destinationSlug
+Culture.slug > users_like_destinations.destinationSlug
+Culture.slug > users_save_destinations.destinationSlug
+Culture.slug > users_view_destinations.destinationSlug
 
 Culture.slug > users_comment_cultures.cultureSlug
 Culture.slug > users_like_cultures.cultureSlug
 Culture.slug > users_save_cultures.cultureSlug
 Culture.slug > users_view_cultures.cultureSlug
 
-Destination.districtSlug > District.slug
-Destination.categorySlug > Category.slug
+Culture.districtSlug > District.slug
+Culture.categorySlug > Category.slug
 Culture.districtSlug > District.slug
 
