@@ -6,28 +6,13 @@ import Stories from "@/pages/stories/stories.tsx";
 import Destination from "@/pages/destinations/destination/destination.tsx";
 import Culture from "@/pages/cultures/culture/culture.tsx";
 import Story from "@/pages/stories/story/story.tsx";
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import Loading from "@/components/ui/loading.tsx";
 import Header from "@/components/ui/header.tsx";
 import {LoadingContext} from "@/provider/loading.tsx";
 
 function App() {
-  const { loading, setLoading } = useContext(LoadingContext)
-  const [destinations, setDestinations] = useState([]);
-
-  useEffect(() => {
-    (async function() {
-      setLoading(true);
-      await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations?count=2`)
-        .then(res => res.json())
-        .then(data => {
-          setDestinations(data.data)
-          setLoading(false);
-        })
-    })()
-  }, [setLoading])
-
-  console.log(destinations)
+  const { loading } = useContext(LoadingContext)
 
   if (loading) return <Loading />
   return (

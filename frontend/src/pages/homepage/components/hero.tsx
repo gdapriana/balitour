@@ -5,7 +5,7 @@ import { motion as m } from "motion/react";
 const Hero = () => {
   return (
     <main className="w-full flex justify-center items-center border-b">
-      <div className="w-full flex-col gap-4 max-w-5xl p-4 h-[602px] lg:h-[633px] xl:h-[682px] flex justify-center items-center">
+      <div className="w-full flex-col gap-4 max-w-5xl p-4 h-[602px] flex justify-center items-center">
         <Brand
           className={{headline: "text-lg lg:text-xl xl:text-2xl", root: "gap-1"}}
           headline={import.meta.env.VITE_PUBLIC_APP}

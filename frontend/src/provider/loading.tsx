@@ -6,7 +6,7 @@ interface LoadingContextType {
 }
 
 const LoadingContext = createContext<LoadingContextType>({
-  loading: false,
+  loading: true,
   setLoading: () => {},
 });
 
