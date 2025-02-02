@@ -1,0 +1,216 @@
+entity-relationship-diagram
+
+// title
+title Content Management System ERD
+
+// define tables
+User [icon: user, color: yellow] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String unique
+  password String
+  name String?
+  email String?
+  profilePicture String?
+  phoneNumber String?
+  gender Gender?
+  token String?
+  role Role
+}
+
+Story [icon: book, color: green] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  name String
+  slug String unique
+  description String
+  cover String
+  body String
+  readingTime Int
+  username String
+}
+
+Destination [icon: map-pin, color: blue] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  name String
+  slug String unique
+  description String
+  cover String
+  address String
+  price Int?
+  map String
+  districtSlug String?
+  categorySlug String?
+}
+
+Culture [icon: globe, color: purple] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  name String
+  slug String unique
+  description String
+  body String
+  cover String
+  address String?
+  districtSlug String?
+}
+
+Category [icon: tag, color: orange] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  slug String unique
+  name String
+  description String?
+}
+
+District [icon: map, color: red] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  name String
+  slug String unique
+  logo String?
+  cover String?
+  description String?
+  body String?
+}
+
+users_comment_stories [icon: message-circle] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  storySlug String
+  body String
+}
+
+users_like_stories [icon: heart] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  storySlug String
+}
+
+users_save_stories [icon: bookmark] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  storySlug String
+}
+
+users_view_stories [icon: eye] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  storySlug String
+}
+
+users_comment_destinations [icon: message-circle] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  destinationSlug String
+  body String
+}
+
+users_like_destinations [icon: heart] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  destinationSlug String
+}
+
+users_save_destinations [icon: bookmark] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  destinationSlug String
+}
+
+users_view_destinations [icon: eye] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  destinationSlug String
+}
+
+users_comment_cultures [icon: message-circle] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  cultureSlug String
+  body String
+}
+
+users_like_cultures [icon: heart] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  cultureSlug String
+}
+
+users_save_cultures [icon: bookmark] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  cultureSlug String
+}
+
+users_view_cultures [icon: eye] {
+  id String pk
+  createdAt DateTime
+  updatedAt DateTime
+  username String
+  cultureSlug String
+}
+
+// define relationships
+User.username > Story.username
+User.username > users_comment_stories.username
+User.username > users_like_stories.username
+User.username > users_save_stories.username
+User.username > users_view_stories.username
+User.username > users_comment_destinations.username
+User.username > users_like_destinations.username
+User.username > users_save_destinations.username
+User.username > users_view_destinations.username
+User.username > users_comment_cultures.username
+User.username > users_like_cultures.username
+User.username > users_save_cultures.username
+User.username > users_view_cultures.username
+
+Story.slug > users_comment_stories.storySlug
+Story.slug > users_like_stories.storySlug
+Story.slug > users_save_stories.storySlug
+Story.slug > users_view_stories.storySlug
+
+Destination.slug > users_comment_destinations.destinationSlug
+Destination.slug > users_like_destinations.destinationSlug
+Destination.slug > users_save_destinations.destinationSlug
+Destination.slug > users_view_destinations.destinationSlug
+
+Culture.slug > users_comment_cultures.cultureSlug
+Culture.slug > users_like_cultures.cultureSlug
+Culture.slug > users_save_cultures.cultureSlug
+Culture.slug > users_view_cultures.cultureSlug
+
+Destination.districtSlug > District.slug
+Destination.categorySlug > Category.slug
+Culture.districtSlug > District.slug
+

@@ -6,6 +6,8 @@ Balitour is your one-stop platform to explore the enchanting island of Bali, Ind
 
 ---
 
+![hero.png](/.eraser/8fAhrZHyr2iaodsEMFmZ___cVXnoMtwNhO7POc4TCBC3tHUFNI3___yK3GS_evHPv41gWb6Usz6.png "hero.png")
+
 > **DESIGN**: [﻿FIGMA](https://www.figma.com/design/KuUVxuNpsepejexonGWDFj/balitour?node-id=0-1&p=f&t=ACAAQg1QWrH5Ism5-0) 
 
 ## Main Features
@@ -25,5 +27,10 @@ Balitour is your one-stop platform to explore the enchanting island of Bali, Ind
 
 
 
-
+<!-- eraser-additional-content -->
+## Diagrams
+<!-- eraser-additional-files -->
+<a href="/README-Content Management System ERD-1.eraserdiagram" data-element-id="DQ3dQ7qZd8RT0p19j2W7O"><img src="/.eraser/8fAhrZHyr2iaodsEMFmZ___cVXnoMtwNhO7POc4TCBC3tHUFNI3___---diagram----44eaeac597f99941f5fd9a99e1e5333d-Content-Management-System-ERD.png" alt="" data-element-id="DQ3dQ7qZd8RT0p19j2W7O" /></a>
+<!-- end-eraser-additional-files -->
+<!-- end-eraser-additional-content -->
 <!--- Eraser file: https://app.eraser.io/workspace/8fAhrZHyr2iaodsEMFmZ --->
