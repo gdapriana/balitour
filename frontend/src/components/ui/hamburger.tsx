@@ -25,7 +25,7 @@ const Hamburger = ({ className }: {className?:string}) => {
           <AlignJustify />
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="z-[9999]">
         <SheetHeader>
           <SheetTitle>
             <Brand

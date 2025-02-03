@@ -4,10 +4,19 @@ import {Navigation} from "@/lib/types.ts";
 import {Link} from "react-router-dom";
 import UserBtn from "@/components/ui/user-btn.tsx";
 import Hamburger from "@/components/ui/hamburger.tsx";
+import {useContext} from "react";
+import {ScrollContext} from "@/provider/scroll.tsx";
+import {cn} from "@/lib/utils.ts";
+import { motion as m} from "motion/react"
 
 const Header = () => {
+  const { scrolled } = useContext(ScrollContext);
   return (
-    <header className="w-full flex justify-center items-center p-4">
+    <m.header
+      animate={scrolled ? { borderBottom: "1px solid #d6d6d6" }: {borderBottom: "0"}}
+      transition={{duration: 0.5}}
+      className={cn("w-full sticky top-0 z-[999] bg-white flex justify-center items-center p-4")}
+    >
       <div className="w-full flex justify-between items-center max-w-5xl">
         <Brand
           headline={import.meta.env.VITE_PUBLIC_APP}
@@ -36,7 +45,7 @@ const Header = () => {
           profile="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
           avatarOnly={false} />
       </div>
-    </header>
+    </m.header>
   );
 };
 

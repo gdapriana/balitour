@@ -6,17 +6,28 @@ import Stories from "@/pages/stories/stories.tsx";
 import Destination from "@/pages/destinations/destination/destination.tsx";
 import Culture from "@/pages/cultures/culture/culture.tsx";
 import Story from "@/pages/stories/story/story.tsx";
-import {useContext} from "react";
+import {useContext, useRef} from "react";
 import Loading from "@/components/ui/loading.tsx";
 import Header from "@/components/ui/header.tsx";
 import {LoadingContext} from "@/provider/loading.tsx";
+import { useScroll, useMotionValueEvent } from "motion/react"
+import {ScrollContext} from "@/provider/scroll.tsx";
+import Footer from "@/components/ui/footer.tsx";
 
 function App() {
   const { loading } = useContext(LoadingContext)
+  const { setScrolled, setValue } = useContext(ScrollContext)
+  const containerRef = useRef(null);
+  const { scrollY } = useScroll({container: document.body as any, offset: ["start end", "end end"]});
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 10)
+    setValue(latest)
+  })
 
   if (loading) return <Loading />
   return (
-    <div>
+    <div ref={containerRef} className="relative">
       <Header />
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -27,6 +38,7 @@ function App() {
         <Route path="/stories" element={<Stories />} />
         <Route path="/stories/:slug" element={<Story />} />
       </Routes>
+      <Footer />
     </div>
   )
 }
