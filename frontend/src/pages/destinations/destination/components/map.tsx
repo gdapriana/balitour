@@ -1,3 +1,4 @@
+import { motion as m } from "motion/react"
 import {useEffect, useState} from "react";
 
 const Map = ({ coordinates }: { coordinates: string | undefined }) => {
@@ -24,12 +25,18 @@ const Map = ({ coordinates }: { coordinates: string | undefined }) => {
   }
 
   return (
-    <main className="w-full">
-      <iframe
-        src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15774.88444067176!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd246bc2ab70d43%3A0x82feaae12f4ab48e!2sPantai%20Kuta!5e0!3m2!1sid!2sid!4v1738676479742!5m2!1sid!2sid`}
-        width="600" height="450" loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"></iframe>
-    </main>
+    <m.main
+      initial='hidden'
+      whileInView="visible"
+      viewport={{once: false}}
+      transition={{duration: 1}}
+      variants={{
+        visible: {opacity: 1},
+        hidden: {opacity: 0},
+      }}
+      className="w-full rounded-3xl overflow-hidden">
+      <iframe width="100%" className="aspect-video grayscale" src={`//maps.google.com/maps?q=${latitude},${longitude}&z=10&output=embed&t=p`}></iframe>
+    </m.main>
   )
 };
 

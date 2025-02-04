@@ -1,10 +1,13 @@
 import {Destination} from "@/lib/types.ts";
 import {Button} from "@/components/ui/button.tsx";
-import {Map, Wallet} from "lucide-react";
+import {Layers2, Map, Wallet} from "lucide-react";
+import { motion as m } from "framer-motion";
 
 const Header = ({ destination }: { destination: Destination | undefined}) => {
   return (
-    <div className="flex flex-col justify-start">
+    <m.div
+      animate={{opacity: [0, 1]}} transition={{duration: 1, delay: .5}}
+      className="flex flex-col justify-start">
       <h1 className="font-bold md:text-xl lg:text-2xl">{destination?.name}</h1>
       <h3 className="text-muted-foreground">{ destination?.address }</h3>
       <div className="flex flex-wrap justify-start my-4 items-center gap-2">
@@ -13,7 +16,7 @@ const Header = ({ destination }: { destination: Destination | undefined}) => {
           {destination?.District?.name}
         </Button>
         <Button variant="outline" className="rounded-full">
-          <Map />
+          <Layers2 />
           {destination?.Category?.name}
         </Button>
         <Button variant="outline" className="rounded-full">
@@ -22,7 +25,7 @@ const Header = ({ destination }: { destination: Destination | undefined}) => {
         </Button>
       </div>
       <p className="">{destination?.description}</p>
-    </div>
+    </m.div>
   );
 };
 
