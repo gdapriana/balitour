@@ -25,6 +25,7 @@ function App() {
     setValue(latest)
   })
 
+
   if (loading) return <Loading />
   return (
     <div ref={containerRef} className="relative">

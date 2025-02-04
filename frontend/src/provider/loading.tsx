@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import {createContext, Dispatch, ReactNode, SetStateAction, useState} from "react";
 
 interface LoadingContextType {
   loading: boolean;
@@ -10,7 +10,7 @@ const LoadingContext = createContext<LoadingContextType>({
   setLoading: () => {},
 });
 
-const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
+const LoadingProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   return <LoadingContext.Provider value={{ loading, setLoading }}>{children}</LoadingContext.Provider>;
