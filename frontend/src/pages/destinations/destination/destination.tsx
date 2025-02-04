@@ -4,7 +4,7 @@ import {Category, Destination as DestinationTypes} from "@/lib/types.ts";
 import {LoadingContext} from "@/provider/loading.tsx";
 import Hero from "@/pages/destinations/destination/components/hero.tsx";
 import Header from "@/pages/destinations/destination/components/header.tsx";
-import NotFound from "@/pages/404.tsx";
+import NotFound from "@/components/ui/404.tsx";
 import Action from "@/pages/destinations/destination/components/action.tsx";
 import Comment from "@/pages/destinations/destination/components/comment.tsx";
 import Map from "@/pages/destinations/destination/components/map.tsx";
