@@ -6,7 +6,7 @@ class DestinationValidation {
     description: z.string().min(10).max(400),
     cover: z.string().url().min(1),
     address: z.string().min(1).max(200),
-    map: z.string().url().min(1),
+    map: z.string().min(1),
     price: z.number().min(0).optional(),
     districtSlug: z.string().min(1).optional(),
     categorySlug: z.string().min(1).optional(),
