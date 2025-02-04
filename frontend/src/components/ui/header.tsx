@@ -1,7 +1,7 @@
 import Brand from "@/components/ui/brand.tsx";
 import {navigations} from "@/lib/metadata.ts";
 import {Navigation} from "@/lib/types.ts";
-import {Link} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import UserBtn from "@/components/ui/user-btn.tsx";
 import Hamburger from "@/components/ui/hamburger.tsx";
 import {useContext} from "react";
@@ -11,6 +11,9 @@ import { motion as m} from "motion/react"
 
 const Header = () => {
   const { scrolled } = useContext(ScrollContext);
+  const location = useLocation();
+  const path = location.pathname.split("/")[1]
+
   return (
     <m.header
       animate={scrolled ? { borderBottom: "1px solid #d6d6d6" }: {borderBottom: "0"}}
@@ -30,9 +33,17 @@ const Header = () => {
         <div className="hidden md:flex gap-4">
           {navigations.map((navigation: Navigation, index: number) => {
             return (
-              <Link to={navigation.path} key={index} className="text-muted-foreground hover:text-primary">
-                {navigation.title}
-              </Link>
+              <div
+                key={index}
+                className="relative"
+              >
+                <m.div
+                  animate={path === navigation.path.split("/")[1] ? {width: "50%"} : {width: "0%"}}
+                  className="absolute z-0 bottom-[-5px] left-1/2 translate-x-[-50%] h-[3px] bg-stone-800 rounded-full"></m.div>
+                <NavLink to={navigation.path} className={cn("z-10 hover:text-primary transition", path === navigation.path.split("/")[1] ? "font-bold" : "font-normal text-muted-foreground")}>
+                  {navigation.title}
+                </NavLink>
+              </div>
             )
           })}
         </div>
