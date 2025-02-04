@@ -6,10 +6,10 @@ import Hero from "@/pages/destinations/destination/components/hero.tsx";
 import Header from "@/pages/destinations/destination/components/header.tsx";
 import NotFound from "@/components/ui/404.tsx";
 import Action from "@/pages/destinations/destination/components/action.tsx";
-import Comment from "@/pages/destinations/destination/components/comment.tsx";
 import Map from "@/pages/destinations/destination/components/map.tsx";
-import FavoritedDestinations from "@/pages/destinations/destination/components/favorited-destinations.tsx";
 import Categories from "@/pages/destinations/destination/components/categories.tsx";
+import FavoritedItems from "@/components/ui/favorited-item.tsx";
+import Comment from "@/components/ui/comment.tsx";
 
 const Destination = () => {
   const { slug } = useParams()
@@ -71,10 +71,13 @@ const Destination = () => {
             <Header destination={destination} />
             <Action destination={destination} />
             <Map coordinates={destination.map} />
-            <Comment destination={destination} />
+            <Comment comments={destination.users_comment_destinations} />
           </div>
           <div className="hidden flex-col gap-8 justify-start items-stretch lg:flex w-1/3">
-            <FavoritedDestinations destinations={favoritedDestinations?.filter(destination => destination.slug !== slug)} />
+            <FavoritedItems
+              items={favoritedDestinations?.filter(destination => destination.slug !== slug)}
+              redirect="Destinations"
+            />
             <Categories categories={categories} />
           </div>
         </div>
