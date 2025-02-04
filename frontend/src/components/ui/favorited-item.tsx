@@ -1,8 +1,8 @@
-import {Culture, Destination} from "@/lib/types.ts";
+import {Culture, Destination, Story} from "@/lib/types.ts";
 import {Link} from "react-router-dom";
 import { motion as m } from "framer-motion";
 
-const FavoritedItems = ({items, redirect}: {items: Destination[] | Culture[] | undefined; redirect: string}) => {
+const FavoritedItems = ({items, redirect}: {items: Destination[] | Culture[] | Story[] | undefined; redirect: string}) => {
   return (
     <div className="flex flex-col gap-4 justify-start items-stretch">
       <h1 className="font-bold text-lg">Favorited {redirect}</h1>

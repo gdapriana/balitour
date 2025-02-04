@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import {Link} from "react-router-dom";
 import {LogOut, Plus, User2} from "lucide-react";
+import {useState} from "react";
 
 const UserBtn = (
-  {profile, username, avatarOnly, className}: {
+  {profile, username, avatarOnly, className, isOpen=true}: {
     profile?: string;
     username?: string;
     avatarOnly: boolean;
@@ -19,11 +20,13 @@ const UserBtn = (
       root?: string;
       avatar?: string;
       username?: string;
-    }
+    };
+    isOpen?: boolean;
   }
 ) => {
+  const [open, setOpen] = useState(false);
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen ? open : false} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <main
           className={cn("flex p-1 cursor-pointer justify-center items-center rounded-full", className?.root, username && "pr-3 gap-2")}>
@@ -37,7 +40,7 @@ const UserBtn = (
           )}
         </main>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 shadow-none">
+      <DropdownMenuContent className="w-56 z-[999] shadow-none">
         <DropdownMenuLabel>Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="cursor-pointer">
