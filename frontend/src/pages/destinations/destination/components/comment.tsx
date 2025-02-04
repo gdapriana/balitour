@@ -3,12 +3,18 @@ import {MessageCircle, Trash, TriangleAlert} from "lucide-react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import moment from "moment";
 import {Button} from "@/components/ui/button.tsx";
+import Brand from "@/components/ui/brand.tsx";
 
 const Comment = ({ destination }: { destination: Destination | undefined }) => {
   return (
     <div className="flex flex-col gap-8 justify-start items-stretch" >
       <h1 className="font-bold flex justify-start gap-1 items-center lg:text-2xl text-xl"><MessageCircle />Comment</h1>
       <div className="flex flex-col gap-8 justify-start items-stretch">
+        {destination?.users_comment_destinations.length === 0 && (
+          <div className="h-40 flex justify-center items-center">
+            <Brand headline="No Comment yet" direction="col" className={{icon: "w-10"}} />
+          </div>
+        )}
         {destination?.users_comment_destinations.map((comment: users_comment_destinations, index: number) => {
           return (
             <article key={index} className="flex gap-6 border-b py-6 flex-col justify-start items-stretch">
