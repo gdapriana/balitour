@@ -41,7 +41,7 @@ const Hamburger = ({ className }: {className?:string}) => {
               </Link>
             )
           })}
-          <UserBtn username="gedeapriana" className={{root: "mt-8 border"}} avatarOnly={false} />
+          <UserBtn isOpen={true} username="gedeapriana" className={{root: "mt-8 border"}} avatarOnly={false} />
         </div>
       </SheetContent>
     </Sheet>

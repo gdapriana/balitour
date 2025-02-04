@@ -40,7 +40,7 @@ const UserBtn = (
           )}
         </main>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 z-[999] shadow-none">
+      <DropdownMenuContent className="w-56 z-[99999] shadow-none">
         <DropdownMenuLabel>Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="cursor-pointer">
