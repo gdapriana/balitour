@@ -20,12 +20,11 @@ class CultureService {
       where: { slug: request },
       include: {
         _count: true,
-        Category: true,
         District: true,
-        users_comment_destinations: true,
-        users_like_destinations: true,
-        users_save_destinations: true,
-        users_view_destinations: true,
+        users_comment_cultures: true,
+        users_like_cultures: true,
+        users_save_cultures: true,
+        users_view_cultures: true,
       },
     });
     if (!culture) throw new ResponseError(404, "culture not found");

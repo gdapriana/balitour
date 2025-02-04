@@ -20,12 +20,12 @@ class DestinationService {
       where: { slug: request },
       include: {
         _count: true,
-        Category: true,
-        District: true,
-        users_comment_destinations: true,
-        users_like_destinations: true,
         users_save_destinations: true,
+        District: true,
+        Category: true,
+        users_like_destinations: true,
         users_view_destinations: true,
+        users_comment_destinations: true
       },
     });
     if (!destination) throw new ResponseError(404, "destination not found");
