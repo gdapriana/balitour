@@ -6,6 +6,7 @@ import Filter from "@/pages/cultures/components/filter.tsx";
 import HeaderTablet from "@/pages/cultures/components/header-tablet.tsx";
 import HeaderDesktop from "@/pages/cultures/components/header-desktop.tsx";
 import CultureCard from "@/components/ui/cultures-card.tsx";
+import NotFound from "@/components/ui/not-found.tsx";
 
 const Cultures = () => {
   useLayoutEffect(() => {
@@ -16,20 +17,24 @@ const Cultures = () => {
   const [allCultures, setAllCultures] = useState<Culture[]>([]);
   const [filteredCultures, setFilteredCultures] = useState<Culture[]>()
 
+  const [name, setName] = useState<string>("");
+
   useEffect(() => {
     (async function() {
-      await fetch(`${import.meta.env.VITE_PUBLIC_API}/cultures`)
+      await fetch(`${import.meta.env.VITE_PUBLIC_API}/cultures?${name !== "" && `name=${name}`}`)
         .then(res => res.json())
         .then(data => {
           setAllCultures(data.data)
           setLoading(false)
         })
     })();
-  }, [setLoading])
+  }, [setLoading, name])
 
   useEffect(() => {
     setFilteredCultures(allCultures)
   }, [allCultures]);
+
+  console.log(name)
 
   return (
     <div>
@@ -42,8 +47,11 @@ const Cultures = () => {
             animate={{opacity: [0, 1]}}
             transition={{duration: 1, ease: "anticipate"}}
             className="w-3/4 flex flex-col justify-start items-stretch gap-8">
-            <HeaderTablet/>
-            <HeaderDesktop/>
+            <HeaderTablet setName={setName} />
+            <HeaderDesktop setName={setName} />
+            {filteredCultures?.length === 0 && (
+              <NotFound title="Cultures" />
+            )}
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
               {filteredCultures?.map((culture: Culture, index: number) => {
                 return (
