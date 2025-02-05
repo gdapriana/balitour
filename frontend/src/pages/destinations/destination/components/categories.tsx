@@ -10,7 +10,7 @@ const Categories = ({categories}: {categories: Category[] | undefined}) => {
         {categories?.map((category, index: number) => {
           return (
             <Button size="sm" variant="outline" className="rounded-full" asChild key={index}>
-              <Link to={`/destinations?category=${category.slug}`}>{category.name}</Link>
+              <Link to={`/destinations?cat=${category.slug}`}>{category.name}</Link>
             </Button>
           )
         })}
