@@ -28,14 +28,17 @@ const Destinations = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const initialCategories = searchParams.getAll('cat');
+    const initialDistricts= searchParams.getAll('dis');
     setCategories(initialCategories);
+    setDistricts(initialDistricts);
   }, [location.search]);
 
   useEffect(() => {
     const searchParams = new URLSearchParams();
     categories.forEach(cat => searchParams.append('cat', cat));
+    districts.forEach(dis => searchParams.append('dis', dis));
     navigate({ search: searchParams.toString() });
-  }, [categories, history]);
+  }, [categories, districts, navigate]);
 
   useEffect(() => {
     (async function() {
