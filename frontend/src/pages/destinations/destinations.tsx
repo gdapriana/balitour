@@ -7,6 +7,7 @@ import {Destination} from "@/lib/types.ts";
 import {LoadingContext} from "@/provider/loading.tsx";
 import DestinationCard from "@/components/ui/destination-card.tsx";
 import NotFound from "@/components/ui/not-found.tsx";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Destinations = () => {
   useLayoutEffect(() => {
@@ -16,8 +17,25 @@ const Destinations = () => {
   const { setLoading } = useContext(LoadingContext)
   const [allDestinations, setAllDestinations] = useState<Destination[]>([]);
   const [filteredDestinations, setFilteredDestinations] = useState<Destination[]>()
+  const navigate = useNavigate()
+  const location = useLocation()
 
+  // filter
   const [name, setName] = useState<string>("");
+  const [categories, setCategories] = useState<string[]>([])
+  const [districts, setDistricts] = useState<string[]>([])
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const initialCategories = searchParams.getAll('cat');
+    setCategories(initialCategories);
+  }, [location.search]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams();
+    categories.forEach(cat => searchParams.append('cat', cat));
+    navigate({ search: searchParams.toString() });
+  }, [categories, history]);
 
   useEffect(() => {
     (async function() {
@@ -39,7 +57,10 @@ const Destinations = () => {
       <div className="flex p-4 justify-center w-full items-center">
         <div className="w-full my-10 max-w-5xl gap-12 flex justify-center items-start">
           <div className="hidden lg:flex w-1/4 flex-col justify-start items-stretch">
-            <Filter />
+            <Filter
+              category={{value: categories, setValue: setCategories}}
+              district={{value: districts, setValue: setDistricts}}
+            />
           </div>
           <m.div
             animate={{opacity: [0,1]}}

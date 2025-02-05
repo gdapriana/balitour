@@ -1,10 +1,13 @@
-import {useContext, useEffect, useState} from "react";
+import {ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
 import {Category, District} from "@/lib/types.ts";
 import {LoadingContext} from "@/provider/loading.tsx";
-import {Checkbox} from "@/components/ui/checkbox.tsx";
 import { motion as m } from "motion/react"
+import {Input} from "@/components/ui/input.tsx";
 
-const Filter = () => {
+const Filter = ({category, district}: {
+  category: { value: string[]; setValue: Dispatch<SetStateAction<string[]>>};
+  district: { value: string[]; setValue: Dispatch<SetStateAction<string[]>>};
+}) => {
   const [categories, setCategories] = useState<Category[]>();
   const [districts, setDistricts] = useState<District[]>();
   const { setLoading } = useContext(LoadingContext)
@@ -28,6 +31,23 @@ const Filter = () => {
     })()
   }, [setLoading])
 
+
+  const toggleCategory = (e: ChangeEvent<HTMLInputElement>) => {
+    if (category.value.includes(e.target.value)) {
+      category.setValue(prev => prev.filter(item => item !== e.target.value))
+    } else {
+      category.setValue(prev => [...prev, e.target.value])
+    }
+  }
+
+  const toggleDistrict = (e: ChangeEvent<HTMLInputElement>) => {
+    if (district.value.includes(e.target.value)) {
+      district.setValue(prev => prev.filter(item => item !== e.target.value))
+    } else {
+      district.setValue(prev => [...prev, e.target.value])
+    }
+  }
+
   return (
     <div className="flex w-full flex-col gap-4 justify-start items-start">
       <m.h1
@@ -42,16 +62,16 @@ const Filter = () => {
         transition={{duration: 1, ease: "anticipate", delay: 0.25}}
         className="border rounded-2xl w-full p-4 flex flex-col justify-start items-stretch gap-4">
         <h1 className="font-bold">Categories</h1>
-        <div className="flex flex-col justify-start items-stretch gap-4">
-          {categories?.map((category: Category, index: number) => {
+        <div className="flex flex-col justify-start items-stretch">
+          {categories?.map((categoryItem: Category, index: number) => {
             return (
               <div key={index} className="flex items-center space-x-2">
-                <Checkbox id={category.slug}/>
+                <Input checked={category.value.includes(categoryItem.slug)} className="w-4" value={categoryItem.slug} onChange={toggleCategory} type="checkbox" />
                 <label
-                  htmlFor={category.slug}
+                  htmlFor={categoryItem.slug}
                   className="leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  {category.name}
+                  {categoryItem.name}
                 </label>
               </div>
             )
@@ -64,16 +84,16 @@ const Filter = () => {
         transition={{duration: 1, ease: "anticipate", delay: 0.5}}
         className="border rounded-2xl w-full p-4 flex flex-col justify-start items-stretch gap-4">
         <h1 className="font-bold">Districts</h1>
-        <div className="flex flex-col justify-start items-stretch gap-4">
-          {districts?.map((district: District, index: number) => {
+        <div className="flex flex-col justify-start items-stretch">
+          {districts?.map((districtItem: District, index: number) => {
             return (
               <div key={index} className="flex items-center space-x-2">
-                <Checkbox id={district.slug}/>
+                <Input className="w-4" checked={district.value.includes(districtItem.slug)} value={districtItem.slug} onChange={toggleDistrict} type="checkbox" />
                 <label
-                  htmlFor={district.slug}
+                  htmlFor={districtItem.slug}
                   className="leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  {district.name}
+                  {districtItem.name}
                 </label>
               </div>
             )
