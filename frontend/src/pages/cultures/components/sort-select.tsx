@@ -22,7 +22,6 @@ const SortSelect = ({sortBy}: {
           <SelectItem itemID="favorited" value="favorited">Sort by: Favorited</SelectItem>
           <SelectItem itemID="liked" value="liked">Sort by: Liked</SelectItem>
           <SelectItem itemID="commented" value="commented">Sort by: Commented</SelectItem>
-          <SelectItem itemID="price" value="price">Sort by: price</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
