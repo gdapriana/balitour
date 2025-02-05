@@ -51,8 +51,6 @@ const Cultures = () => {
     setFilteredCultures(allCultures)
   }, [allCultures]);
 
-  console.log(name)
-
   return (
     <div>
       <div className="flex p-4 justify-center w-full items-center">

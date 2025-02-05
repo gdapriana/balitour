@@ -17,7 +17,9 @@ const Stories = () => {
   const [allStories, setAllStories] = useState<Story[]>([]);
   const [filteredStories, setFilteredStories] = useState<Story[]>()
 
+  // filter
   const [name, setName] = useState<string>("");
+  const [sortBy, setSortBy] = useState<string>("favorited")
 
   useEffect(() => {
     (async function() {
@@ -29,7 +31,6 @@ const Stories = () => {
         })
     })();
   }, [setLoading, name])
-
   useEffect(() => {
     setFilteredStories(allStories)
   }, [allStories]);
@@ -42,8 +43,14 @@ const Stories = () => {
             animate={{opacity: [0, 1]}}
             transition={{duration: 1, ease: "anticipate"}}
             className="w-full flex flex-col justify-start items-stretch gap-8">
-            <HeaderTablet setName={setName} />
-            <HeaderDesktop setName={setName}/>
+            <HeaderTablet
+              sortBy={{value: sortBy, setValue: setSortBy}}
+              setName={setName}
+            />
+            <HeaderDesktop
+              sortBy={{value: sortBy, setValue: setSortBy}}
+              setName={setName}
+            />
             {filteredStories?.length === 0 && (
               <NotFound title="Stories" />
             )}
