@@ -38,15 +38,21 @@ const Cultures = () => {
   }, [districts, navigate]);
   useEffect(() => {
     (async function() {
-      await fetch(`${import.meta.env.VITE_PUBLIC_API}/cultures?${name !== "" && `name=${name}`}`)
+      const queryParams = new URLSearchParams();
+      if (name !== "") queryParams.append('name', name);
+      districts.forEach(dis => queryParams.append('district', dis));
+      await fetch(`${import.meta.env.VITE_PUBLIC_API}/cultures?${queryParams.toString()}`)
         .then(res => res.json())
         .then(data => {
-          setAllCultures(data.data)
-          setLoading(false)
+          setAllCultures(data.data);
+          setLoading(false);
         })
+        .catch(error => {
+          console.error('Error fetching destinations:', error);
+          setLoading(false);
+        });
     })();
-  }, [setLoading, name])
-
+  }, [setLoading, name, districts]);
   useEffect(() => {
     setFilteredCultures(allCultures)
   }, [allCultures]);
