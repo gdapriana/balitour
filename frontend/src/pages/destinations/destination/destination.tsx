@@ -21,7 +21,6 @@ const Destination = () => {
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
   }, []);
-
   useEffect(() => {
     async function getData() {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations/${slug}`)
@@ -33,7 +32,6 @@ const Destination = () => {
     }
     getData().then()
   }, [slug, setLoading])
-
   useEffect(() => {
     async function getData() {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations?count=4`)
@@ -45,7 +43,6 @@ const Destination = () => {
     }
     getData().then()
   }, [setLoading])
-
   useEffect(() => {
     async function getData() {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/categories?count=8`)
@@ -58,10 +55,7 @@ const Destination = () => {
     getData().then()
   }, [setLoading])
 
-  if (!destination) {
-    return <NotFound />
-  }
-
+  if (!destination) return <NotFound />
   return (
     <div>
       <Hero cover={destination?.cover || ""} />

@@ -24,6 +24,7 @@ const Destinations = () => {
   const [name, setName] = useState<string>("");
   const [categories, setCategories] = useState<string[]>([])
   const [districts, setDistricts] = useState<string[]>([])
+  const [sortBy, setSortBy] = useState<string>("favorited")
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -32,14 +33,12 @@ const Destinations = () => {
     setCategories(initialCategories);
     setDistricts(initialDistricts);
   }, [location.search]);
-
   useEffect(() => {
     const searchParams = new URLSearchParams();
     categories.forEach(cat => searchParams.append('cat', cat));
     districts.forEach(dis => searchParams.append('dis', dis));
     navigate({ search: searchParams.toString() });
   }, [categories, districts, navigate]);
-
   useEffect(() => {
     (async function() {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations?${name !== "" && `name=${name}`}`)
@@ -50,7 +49,6 @@ const Destinations = () => {
         })
     })();
   }, [setLoading, name])
-
   useEffect(() => {
     setFilteredDestinations(allDestinations)
   }, [allDestinations]);
@@ -69,8 +67,8 @@ const Destinations = () => {
             animate={{opacity: [0,1]}}
             transition={{duration: 1, ease: "anticipate"}}
             className="w-3/4 flex flex-col justify-start items-stretch gap-8">
-            <HeaderTablet setName={setName} />
-            <HeaderDesktop setName={setName} />
+            <HeaderTablet sortBy={{value: sortBy, setValue: setSortBy}} setName={setName} />
+            <HeaderDesktop sortBy={{value: sortBy, setValue: setSortBy}} setName={setName} />
             {filteredDestinations?.length === 0 && (
               <NotFound title="Destination" />
             )}
