@@ -14,6 +14,7 @@ class CultureValidation {
     name: z.string().min(1).max(200).optional(),
     description: z.string().min(1).max(200).optional(),
     address: z.string().min(1).max(200).optional(),
+    district: z.array(z.string()).or(z.string()).optional()
   });
   static UPDATE = z.object({
     name: z.string().min(1).max(200).optional(),

@@ -31,13 +31,26 @@ class CultureService {
     return culture;
   }
   static async gets(req) {
+    let dis = []
     const queries = validation(CultureValidation.GETS, req);
+    if (queries.district) {
+      if (typeof queries.district === "string") {
+        dis.push({districtSlug: queries.district});
+      } else {
+        for (const district of queries.district) {
+          dis.push({districtSlug: district});
+        }
+      }
+    }
     return db.culture.findMany({
       where: {
         AND: [
           { name: { contains: queries.name, mode: "insensitive" } },
           { description: { contains: queries.description, mode: "insensitive" } },
           { address: { contains: queries.address, mode: "insensitive" } },
+          {
+            OR: dis
+          }
         ],
       },
       include: {

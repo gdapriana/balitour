@@ -59,8 +59,12 @@ class DestinationService {
           { name: { contains: queries.name, mode: "insensitive" } },
           { description: { contains: queries.description, mode: "insensitive" } },
           { address: { contains: queries.address, mode: "insensitive" } },
-          ...cat,
-          ...dis
+          {
+            OR: cat
+          },
+          {
+            OR: dis
+          }
         ],
       },
       include: {
