@@ -32,13 +32,35 @@ class DestinationService {
     return destination;
   }
   static async gets(req) {
+    let cat = []
+    let dis = []
     const queries = validation(DestinationValidation.GETS, req);
+    if (queries.category) {
+      if (typeof queries.category === "string") {
+        cat.push({categorySlug: queries.category});
+      } else {
+        for (const category of queries.category) {
+          cat.push({categorySlug: category});
+        }
+      }
+    }
+    if (queries.district) {
+      if (typeof queries.district === "string") {
+        dis.push({districtSlug: queries.district});
+      } else {
+        for (const district of queries.district) {
+          dis.push({districtSlug: district});
+        }
+      }
+    }
     return db.destination.findMany({
       where: {
         AND: [
           { name: { contains: queries.name, mode: "insensitive" } },
           { description: { contains: queries.description, mode: "insensitive" } },
           { address: { contains: queries.address, mode: "insensitive" } },
+          ...cat,
+          ...dis
         ],
       },
       include: {

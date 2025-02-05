@@ -20,6 +20,8 @@ class DestinationValidation {
     favorited:z.number().min(0).max(1).optional(),
     liked:z.number().min(0).max(1).optional(),
     commented:z.number().min(1).max(200).optional(),
+    category: z.array(z.string()).or(z.string()).optional(),
+    district: z.array(z.string()).or(z.string()).optional()
   });
   static UPDATE = z.object({
     name: z.string().min(1).max(200).optional(),
