@@ -7,7 +7,7 @@ import {Destination} from "@/lib/types.ts";
 import {LoadingContext} from "@/provider/loading.tsx";
 import DestinationCard from "@/components/ui/destination-card.tsx";
 import NotFound from "@/components/ui/not-found.tsx";
-import { useNavigate, useLocation } from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 
 const Destinations = () => {
   useLayoutEffect(() => {
@@ -41,14 +41,23 @@ const Destinations = () => {
   }, [categories, districts, navigate]);
   useEffect(() => {
     (async function() {
-      await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations?${name !== "" && `name=${name}`}`)
+      const queryParams = new URLSearchParams();
+      if (name !== "") queryParams.append('name', name);
+      categories.forEach(cat => queryParams.append('category', cat));
+      districts.forEach(dis => queryParams.append('district', dis));
+      console.log(queryParams.toString());
+      await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations?${queryParams.toString()}`)
         .then(res => res.json())
         .then(data => {
-          setAllDestinations(data.data)
-          setLoading(false)
+          setAllDestinations(data.data);
+          setLoading(false);
         })
+        .catch(error => {
+          console.error('Error fetching destinations:', error);
+          setLoading(false);
+        });
     })();
-  }, [setLoading, name])
+  }, [setLoading, name, categories, districts]);
   useEffect(() => {
     setFilteredDestinations(allDestinations)
   }, [allDestinations]);
