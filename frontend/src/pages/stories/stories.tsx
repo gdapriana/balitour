@@ -5,6 +5,7 @@ import { motion as m } from "motion/react"
 import HeaderTablet from "@/pages/stories/components/header-tablet.tsx";
 import HeaderDesktop from "@/pages/stories/components/header-desktop.tsx";
 import StoryCard from "@/components/ui/story-card.tsx";
+import NotFound from "@/components/ui/not-found.tsx";
 
 const Stories = () => {
   useLayoutEffect(() => {
@@ -16,16 +17,18 @@ const Stories = () => {
   const [allStories, setAllStories] = useState<Story[]>([]);
   const [filteredStories, setFilteredStories] = useState<Story[]>()
 
+  const [name, setName] = useState<string>("");
+
   useEffect(() => {
     (async function() {
-      await fetch(`${import.meta.env.VITE_PUBLIC_API}/stories`)
+      await fetch(`${import.meta.env.VITE_PUBLIC_API}/stories?${name !== "" && `name=${name}`}`)
         .then(res => res.json())
         .then(data => {
           setAllStories(data.data)
           setLoading(false)
         })
     })();
-  }, [setLoading])
+  }, [setLoading, name])
 
   useEffect(() => {
     setFilteredStories(allStories)
@@ -39,8 +42,11 @@ const Stories = () => {
             animate={{opacity: [0, 1]}}
             transition={{duration: 1, ease: "anticipate"}}
             className="w-full flex flex-col justify-start items-stretch gap-8">
-            <HeaderTablet/>
-            <HeaderDesktop/>
+            <HeaderTablet setName={setName} />
+            <HeaderDesktop setName={setName}/>
+            {filteredStories?.length === 0 && (
+              <NotFound title="Stories" />
+            )}
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {filteredStories?.map((story: Story, index: number) => {
                 return (
