@@ -6,6 +6,7 @@ import { motion as m } from "motion/react"
 import {Destination} from "@/lib/types.ts";
 import {LoadingContext} from "@/provider/loading.tsx";
 import DestinationCard from "@/components/ui/destination-card.tsx";
+import NotFound from "@/components/ui/not-found.tsx";
 
 const Destinations = () => {
   useLayoutEffect(() => {
@@ -16,16 +17,18 @@ const Destinations = () => {
   const [allDestinations, setAllDestinations] = useState<Destination[]>([]);
   const [filteredDestinations, setFilteredDestinations] = useState<Destination[]>()
 
+  const [name, setName] = useState<string>("");
+
   useEffect(() => {
     (async function() {
-      await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations`)
+      await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations?${name !== "" && `name=${name}`}`)
         .then(res => res.json())
         .then(data => {
           setAllDestinations(data.data)
           setLoading(false)
         })
     })();
-  }, [setLoading])
+  }, [setLoading, name])
 
   useEffect(() => {
     setFilteredDestinations(allDestinations)
@@ -42,8 +45,11 @@ const Destinations = () => {
             animate={{opacity: [0,1]}}
             transition={{duration: 1, ease: "anticipate"}}
             className="w-3/4 flex flex-col justify-start items-stretch gap-8">
-            <HeaderTablet />
-            <HeaderDesktop />
+            <HeaderTablet setName={setName} />
+            <HeaderDesktop setName={setName} />
+            {filteredDestinations?.length === 0 && (
+              <NotFound title="Destination" />
+            )}
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
               {filteredDestinations?.map((destination: Destination, index: number) => {
                 return (
