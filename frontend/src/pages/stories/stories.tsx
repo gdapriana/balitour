@@ -32,8 +32,23 @@ const Stories = () => {
     })();
   }, [setLoading, name])
   useEffect(() => {
-    setFilteredStories(allStories)
-  }, [allStories]);
+    const sortedDestinations = [...allStories].sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name); // Sort by name (A-Z)
+        case 'commented':
+          return b._count.users_comment_stories - a._count.users_comment_stories; // Sort by commented count (highest to lowest)
+        case 'favorited':
+          return b._count.users_save_stories - a._count.users_save_stories; // Sort by favorited count (highest to lowest)
+        case 'liked':
+          return b._count.users_like_stories - a._count.users_like_stories; // Sort by liked count (highest to lowest)
+        default:
+          return 0;
+      }
+    });
+
+    setFilteredStories(sortedDestinations);
+  }, [allStories, sortBy]);
 
   return (
     <div>

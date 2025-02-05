@@ -25,7 +25,6 @@ const Cultures = () => {
   const [districts, setDistricts] = useState<string[]>([])
   const [sortBy, setSortBy] = useState<string>("favorited")
 
-
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const initialDistricts= searchParams.getAll('dis');
@@ -54,8 +53,22 @@ const Cultures = () => {
     })();
   }, [setLoading, name, districts]);
   useEffect(() => {
-    setFilteredCultures(allCultures)
-  }, [allCultures]);
+    const sortedDestinations = [...allCultures].sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'commented':
+          return b._count.users_comment_cultures - a._count.users_comment_cultures;
+        case 'favorited':
+          return b._count.users_save_cultures - a._count.users_save_cultures;
+        case 'liked':
+          return b._count.users_like_cultures - a._count.users_like_cultures;
+        default:
+          return 0;
+      }
+    });
+    setFilteredCultures(sortedDestinations);
+  }, [allCultures ,sortBy]);
 
   return (
     <div>

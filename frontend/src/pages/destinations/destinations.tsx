@@ -58,9 +58,24 @@ const Destinations = () => {
     })();
   }, [setLoading, name, categories, districts]);
   useEffect(() => {
-    setFilteredDestinations(allDestinations)
-  }, [allDestinations]);
-
+    const sortedDestinations = [...allDestinations].sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'commented':
+          return b._count.users_comment_destinations - a._count.users_comment_destinations;
+        case 'favorited':
+          return b._count.users_save_destinations - a._count.users_save_destinations;
+        case 'liked':
+          return b._count.users_like_destinations - a._count.users_like_destinations;
+        case 'price':
+          return (b.price || 0 )- (a.price || 0);
+        default:
+          return 0;
+      }
+    });
+    setFilteredDestinations(sortedDestinations);
+  }, [allDestinations, sortBy]);
   return (
     <div>
       <div className="flex p-4 justify-center w-full items-center">
