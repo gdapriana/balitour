@@ -24,7 +24,7 @@ const Destinations = () => {
   const [name, setName] = useState<string>("");
   const [categories, setCategories] = useState<string[]>([])
   const [districts, setDistricts] = useState<string[]>([])
-  const [sortBy, setSortBy] = useState<string>("favorited")
+  const [sortBy, setSortBy] = useState<string>('favorited')
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
