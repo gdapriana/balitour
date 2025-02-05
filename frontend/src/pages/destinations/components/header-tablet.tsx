@@ -6,10 +6,7 @@ import {Dispatch, SetStateAction} from "react";
 
 const HeaderTablet = ({ setName, sortBy, district, category }: {
   setName: Dispatch<SetStateAction<string>>;
-  sortBy: {
-    value: string;
-    setValue: Dispatch<SetStateAction<string>>;
-  };
+  sortBy: {value: string; setValue: Dispatch<SetStateAction<string>>};
   district: {value: string[]; setValue: Dispatch<SetStateAction<string[]>>};
   category: {value: string[]; setValue: Dispatch<SetStateAction<string[]>>};
 }) => {

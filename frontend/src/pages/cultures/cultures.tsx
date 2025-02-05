@@ -7,6 +7,7 @@ import HeaderTablet from "@/pages/cultures/components/header-tablet.tsx";
 import HeaderDesktop from "@/pages/cultures/components/header-desktop.tsx";
 import CultureCard from "@/components/ui/cultures-card.tsx";
 import NotFound from "@/components/ui/not-found.tsx";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Cultures = () => {
   useLayoutEffect(() => {
@@ -16,9 +17,25 @@ const Cultures = () => {
   const { setLoading } = useContext(LoadingContext)
   const [allCultures, setAllCultures] = useState<Culture[]>([]);
   const [filteredCultures, setFilteredCultures] = useState<Culture[]>()
+  const navigate = useNavigate()
+  const location = useLocation()
 
+  // filter
   const [name, setName] = useState<string>("");
+  const [districts, setDistricts] = useState<string[]>([])
+  const [sortBy, setSortBy] = useState<string>("favorited")
 
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const initialDistricts= searchParams.getAll('dis');
+    setDistricts(initialDistricts);
+  }, [location.search]);
+  useEffect(() => {
+    const searchParams = new URLSearchParams();
+    districts.forEach(dis => searchParams.append('dis', dis));
+    navigate({ search: searchParams.toString() });
+  }, [districts, navigate]);
   useEffect(() => {
     (async function() {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/cultures?${name !== "" && `name=${name}`}`)
@@ -41,14 +58,23 @@ const Cultures = () => {
       <div className="flex p-4 justify-center w-full items-center">
         <div className="w-full my-10 max-w-5xl gap-12 flex justify-center items-start">
           <div className="hidden lg:flex w-1/4 flex-col justify-start items-stretch">
-            <Filter/>
+            <Filter
+              district={{value: districts, setValue: setDistricts}}
+            />
           </div>
           <m.div
             animate={{opacity: [0, 1]}}
             transition={{duration: 1, ease: "anticipate"}}
             className="w-3/4 flex flex-col justify-start items-stretch gap-8">
-            <HeaderTablet setName={setName} />
-            <HeaderDesktop setName={setName} />
+            <HeaderTablet
+              district={{value: districts, setValue: setDistricts}}
+              sortBy={{value: sortBy, setValue: setSortBy}}
+              setName={setName}
+            />
+            <HeaderDesktop
+              sortBy={{value: sortBy, setValue: setSortBy}}
+              setName={setName}
+            />
             {filteredCultures?.length === 0 && (
               <NotFound title="Cultures" />
             )}

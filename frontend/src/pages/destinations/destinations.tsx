@@ -73,7 +73,10 @@ const Destinations = () => {
               sortBy={{value: sortBy, setValue: setSortBy}}
               setName={setName}
             />
-            <HeaderDesktop sortBy={{value: sortBy, setValue: setSortBy}} setName={setName} />
+            <HeaderDesktop
+              sortBy={{value: sortBy, setValue: setSortBy}}
+              setName={setName}
+            />
             {filteredDestinations?.length === 0 && (
               <NotFound title="Destination" />
             )}
