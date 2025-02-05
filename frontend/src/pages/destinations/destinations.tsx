@@ -67,7 +67,12 @@ const Destinations = () => {
             animate={{opacity: [0,1]}}
             transition={{duration: 1, ease: "anticipate"}}
             className="w-3/4 flex flex-col justify-start items-stretch gap-8">
-            <HeaderTablet sortBy={{value: sortBy, setValue: setSortBy}} setName={setName} />
+            <HeaderTablet
+              district={{value: districts, setValue: setDistricts}}
+              category={{value: categories, setValue: setCategories}}
+              sortBy={{value: sortBy, setValue: setSortBy}}
+              setName={setName}
+            />
             <HeaderDesktop sortBy={{value: sortBy, setValue: setSortBy}} setName={setName} />
             {filteredDestinations?.length === 0 && (
               <NotFound title="Destination" />
