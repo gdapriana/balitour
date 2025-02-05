@@ -45,7 +45,6 @@ const Destinations = () => {
       if (name !== "") queryParams.append('name', name);
       categories.forEach(cat => queryParams.append('category', cat));
       districts.forEach(dis => queryParams.append('district', dis));
-      console.log(queryParams.toString());
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations?${queryParams.toString()}`)
         .then(res => res.json())
         .then(data => {
