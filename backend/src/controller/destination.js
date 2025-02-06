@@ -153,6 +153,36 @@ class DestinationController {
       next(e);
     }
   }
+  static async saved(req, res, next) {
+    try {
+      const slug = req.params.slug;
+      const username = req.username;
+      const response = await DestinationService.userSavedDestination(slug, username);
+      res.status(200).json({ data: response });
+    } catch (e) {
+      next(e)
+    }
+  }
+  static async liked(req, res, next) {
+    try {
+      const slug = req.params.slug;
+      const username = req.username;
+      const response = await DestinationService.userLikedDestination(slug, username);
+      res.status(200).json({ data: response });
+    } catch (e) {
+      next(e)
+    }
+  }
+  static async viewed(req, res, next) {
+    try {
+      const slug = req.params.slug;
+      const username = req.username;
+      const response = await DestinationService.userViewedDestination(slug, username);
+      res.status(200).json({ data: response });
+    } catch (e) {
+      next(e)
+    }
+  }
 }
 
 export default DestinationController;

@@ -192,6 +192,45 @@ class StoryService {
       select: { story: true },
     });
   }
+  static async userSavedStory(slug, username) {
+    const story = await db.story.findUnique({
+      where: { slug },
+    })
+    if (!story) throw new ResponseError(404, "story not found");
+    const savedStory = await db.users_save_stories.findFirst({
+      where: {
+        username, storySlug: slug
+      }
+    })
+    if(!savedStory) return false;
+    return true
+  }
+  static async userLikedStory(slug, username) {
+    const story = await db.story.findUnique({
+      where: { slug },
+    })
+    if (!story) throw new ResponseError(404, "story not found");
+    const likedStory = await db.users_like_stories.findFirst({
+      where: {
+        username, storySlug: slug
+      }
+    })
+    if(!likedStory) return false;
+    return true
+  }
+  static async userViewedStory(slug, username) {
+    const story = await db.story.findUnique({
+      where: { slug },
+    })
+    if (!story) throw new ResponseError(404, "story not found");
+    const viewedStory = await db.users_view_stories.findFirst({
+      where: {
+        username, storySlug: slug
+      }
+    })
+    if(!viewedStory) return false;
+    return true
+  }
 }
 
 export default StoryService;

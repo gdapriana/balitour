@@ -218,6 +218,45 @@ class CultureService {
       select: { culture: true },
     });
   }
+  static async userSavedCulture(slug, username) {
+    const culture = await db.culture.findUnique({
+      where: { slug },
+    })
+    if (!culture) throw new ResponseError(404, "culture not found");
+    const savedCulture = await db.users_save_cultures.findFirst({
+      where: {
+        username, cultureSlug: slug
+      }
+    })
+    if(!savedCulture) return false;
+    return true
+  }
+  static async userLikedCulture(slug, username) {
+    const culture = await db.culture.findUnique({
+      where: { slug },
+    })
+    if (!culture) throw new ResponseError(404, "culture not found");
+    const likedCulture = await db.users_like_cultures.findFirst({
+      where: {
+        username, cultureSlug: slug
+      }
+    })
+    if(!likedCulture) return false;
+    return true
+  }
+  static async userViewedCulture(slug, username) {
+    const culture = await db.culture.findUnique({
+      where: { slug },
+    })
+    if (!culture) throw new ResponseError(404, "culture not found");
+    const viewedCulture = await db.users_view_cultures.findFirst({
+      where: {
+        username, cultureSlug: slug
+      }
+    })
+    if(!viewedCulture) return false;
+    return true
+  }
 }
 
 export default CultureService;

@@ -1,4 +1,5 @@
 import CultureService from "../service/culture.js";
+import DestinationService from "../service/destination.js";
 
 class CultureController {
   static async create(req, res, next) {
@@ -125,6 +126,36 @@ class CultureController {
       res.status(200).json({ data: response });
     } catch (e) {
       next(e);
+    }
+  }
+  static async saved(req, res, next) {
+    try {
+      const slug = req.params.slug;
+      const username = req.username;
+      const response = await CultureService.userSavedCulture(slug, username);
+      res.status(200).json({ data: response });
+    } catch (e) {
+      next(e)
+    }
+  }
+  static async liked(req, res, next) {
+    try {
+      const slug = req.params.slug;
+      const username = req.username;
+      const response = await CultureService.userLikedCulture(slug, username);
+      res.status(200).json({ data: response });
+    } catch (e) {
+      next(e)
+    }
+  }
+  static async viewed(req, res, next) {
+    try {
+      const slug = req.params.slug;
+      const username = req.username;
+      const response = await CultureService.userViewedCulture(slug, username);
+      res.status(200).json({ data: response });
+    } catch (e) {
+      next(e)
     }
   }
 }
