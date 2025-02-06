@@ -71,7 +71,7 @@ const Culture = () => {
             <Header culture={culture} />
             <Action culture={culture} />
             <Body text={culture.body} />
-            <Comment comments={culture.users_comment_cultures} />
+            <Comment slug={culture.slug} object="cultures" itemName={culture.name} comments={culture.users_comment_cultures} />
           </div>
           <div className="hidden flex-col gap-8 justify-start items-stretch lg:flex w-1/3">
             <FavoritedItems

@@ -65,7 +65,7 @@ const Destination = () => {
             <Header destination={destination} />
             <Action destination={destination} />
             <Map coordinates={destination.map} />
-            <Comment comments={destination.users_comment_destinations} />
+            <Comment slug={destination.slug} object="destinations" itemName={destination.name} comments={destination.users_comment_destinations} />
           </div>
           <div className="hidden flex-col gap-8 justify-start items-stretch lg:flex w-1/3">
             <FavoritedItems

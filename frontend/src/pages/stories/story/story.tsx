@@ -72,7 +72,7 @@ const Story = () => {
             <Header story={story}/>
             <Action story={story}/>
             <Body text={story.body}/>
-            <Comment comments={story.users_comment_stories}/>
+            <Comment slug={story.slug} object="stories" itemName={story.name} comments={story.users_comment_stories}/>
           </div>
           <div className="hidden flex-col gap-8 justify-start items-stretch lg:flex w-1/3">
             <FavoritedItems

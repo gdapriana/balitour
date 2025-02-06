@@ -32,8 +32,7 @@ const AuthProvider = ({children}: {children: ReactNode}) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log({data})
-        setUsername(data.data.username);
+        setUsername(data.data);
         setAuthenticated(true);
       } else {
         setToken(null)

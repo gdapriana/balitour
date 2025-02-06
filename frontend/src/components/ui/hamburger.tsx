@@ -6,17 +6,19 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import {Button} from "@/components/ui/button.tsx";
-import {AlignJustify} from "lucide-react";
+import {AlignJustify, LogInIcon} from "lucide-react";
 import {cn} from "@/lib/utils.ts";
 import Brand from "@/components/ui/brand.tsx";
 import {navigations} from "@/lib/metadata.ts";
 import {Navigation} from "@/lib/types.ts";
 import {Link} from "react-router-dom";
 import UserBtn from "@/components/ui/user-btn.tsx";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {AuthContext} from "@/provider/auth.tsx";
 
 const Hamburger = ({ className }: {className?:string}) => {
   const [open, setOpen] = useState(false);
+  const { authenticated, username } = useContext(AuthContext);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -41,7 +43,16 @@ const Hamburger = ({ className }: {className?:string}) => {
               </Link>
             )
           })}
-          <UserBtn isOpen={true} username="gedeapriana" className={{root: "mt-8 border"}} avatarOnly={false} />
+
+          {authenticated ? (
+            <UserBtn isOpen={true} username={username!} className={{root: "mt-8 border"}} avatarOnly={false} />
+          ): (
+            <Button className="rounded-full" asChild>
+              <Link to="/login">
+                Login <LogInIcon />
+              </Link>
+            </Button>
+          )}
         </div>
       </SheetContent>
     </Sheet>

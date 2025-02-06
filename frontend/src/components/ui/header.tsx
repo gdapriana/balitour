@@ -1,18 +1,22 @@
 import Brand from "@/components/ui/brand.tsx";
 import {navigations} from "@/lib/metadata.ts";
 import {Navigation} from "@/lib/types.ts";
-import {NavLink, useLocation} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 import UserBtn from "@/components/ui/user-btn.tsx";
 import Hamburger from "@/components/ui/hamburger.tsx";
 import {useContext} from "react";
 import {ScrollContext} from "@/provider/scroll.tsx";
 import {cn} from "@/lib/utils.ts";
 import { motion as m} from "motion/react"
+import {AuthContext} from "@/provider/auth.tsx";
+import {Button} from "@/components/ui/button.tsx";
+import {LogInIcon} from "lucide-react";
 
 const Header = () => {
   const { scrolled } = useContext(ScrollContext);
   const location = useLocation();
   const path = location.pathname.split("/")[1]
+  const { authenticated, username } = useContext(AuthContext)
 
   return (
     <m.header
@@ -48,13 +52,20 @@ const Header = () => {
           })}
         </div>
         <Hamburger className="md:hidden" />
-        <UserBtn
-          className={{
-            root: "border hidden md:flex"
-          }}
-          username="apriana"
-          profile="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
-          avatarOnly={false} />
+        {authenticated ? (
+          <UserBtn
+            className={{
+              root: "border hidden md:flex"
+            }}
+            username={username!}
+            avatarOnly={false} />
+        ): (
+          <Button className="rounded-full hidden md:flex" asChild>
+            <Link to="/login">
+              Login <LogInIcon />
+            </Link>
+          </Button>
+        )}
       </div>
     </m.header>
   );
