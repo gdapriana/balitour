@@ -13,6 +13,7 @@ import {LoadingContext} from "@/provider/loading.tsx";
 import { useScroll, useMotionValueEvent } from "motion/react"
 import {ScrollContext} from "@/provider/scroll.tsx";
 import Footer from "@/components/ui/footer.tsx";
+import Login from "@/pages/login/login.tsx";
 
 function App() {
   const { loading } = useContext(LoadingContext)
@@ -29,6 +30,9 @@ function App() {
   if (loading) return <Loading />
   return (
     <div ref={containerRef} className="relative">
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
       <Header />
       <Routes>
         <Route path="/" element={<Homepage />} />
