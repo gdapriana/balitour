@@ -15,6 +15,7 @@ import {Link} from "react-router-dom";
 import UserBtn from "@/components/ui/user-btn.tsx";
 import {useContext, useState} from "react";
 import {AuthContext} from "@/provider/auth.tsx";
+import LogoutAlert from "@/components/ui/logout-alert.tsx";
 
 const Hamburger = ({ className }: {className?:string}) => {
   const [open, setOpen] = useState(false);
@@ -45,7 +46,7 @@ const Hamburger = ({ className }: {className?:string}) => {
           })}
 
           {authenticated ? (
-            <UserBtn isOpen={true} username={username!} className={{root: "mt-8 border"}} avatarOnly={false} />
+            <LogoutAlert />
           ): (
             <Button className="rounded-full" asChild>
               <Link to="/login">

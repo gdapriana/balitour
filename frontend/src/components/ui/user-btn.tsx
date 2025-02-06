@@ -8,8 +8,10 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu.tsx";
 import {Link} from "react-router-dom";
-import {LogOut, Plus, User2} from "lucide-react";
-import {useState} from "react";
+import {Plus, User2} from "lucide-react";
+import {useContext, useState} from "react";
+import {AuthContext} from "@/provider/auth.tsx";
+import LogoutAlert from "@/components/ui/logout-alert.tsx";
 
 const UserBtn = (
   {profile, username, avatarOnly, className, isOpen=true}: {
@@ -25,6 +27,7 @@ const UserBtn = (
   }
 ) => {
   const [open, setOpen] = useState(false);
+  const { authenticated } = useContext(AuthContext);
   return (
     <DropdownMenu open={isOpen ? open : false} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
@@ -56,10 +59,9 @@ const UserBtn = (
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="cursor-pointer">
-          <Link to="/profile">
-            <LogOut />
-            Logout
-          </Link>
+          {authenticated && (
+            <LogoutAlert />
+          )}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
