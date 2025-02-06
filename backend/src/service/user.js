@@ -103,7 +103,16 @@ class UserService {
     await db.user.delete({ where: { username } });
   }
   static async verify(username) {
-    return db.user.findUnique({where: { username }});
+    return db.user.findUnique({
+      where: { username },
+      include: {
+        _count: true,
+        stories: true,
+        users_save_stories: true,
+        users_save_destinations: true,
+        users_save_cultures: true,
+      }
+    });
   }
 }
 
