@@ -14,11 +14,11 @@ import {Navigation} from "@/lib/types.ts";
 import {Link} from "react-router-dom";
 import {useContext, useState} from "react";
 import {AuthContext} from "@/provider/auth.tsx";
-import LogoutAlert from "@/components/ui/logout-alert.tsx";
+import UserBtn from "@/components/ui/user-btn.tsx";
 
 const Hamburger = ({ className }: {className?:string}) => {
   const [open, setOpen] = useState(false);
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated, username } = useContext(AuthContext);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -45,7 +45,7 @@ const Hamburger = ({ className }: {className?:string}) => {
           })}
 
           {authenticated ? (
-            <LogoutAlert />
+            <UserBtn avatarOnly={false} isOpen={true} username={username!} className={{root: "border"}} />
           ): (
             <Button className="rounded-full" asChild>
               <Link to="/login">
