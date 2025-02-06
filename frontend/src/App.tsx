@@ -15,6 +15,7 @@ import {ScrollContext} from "@/provider/scroll.tsx";
 import Footer from "@/components/ui/footer.tsx";
 import Login from "@/pages/login/login.tsx";
 import Register from "@/pages/register/register.tsx";
+import Profile from "@/pages/profile/profile.tsx";
 
 function App() {
   const { loading } = useContext(LoadingContext)
@@ -31,11 +32,12 @@ function App() {
   if (loading) return <Loading />
   return (
     <div ref={containerRef} className="relative">
+      <Header />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
-      <Header />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/destinations" element={<Destinations />} />

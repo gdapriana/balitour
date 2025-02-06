@@ -36,7 +36,7 @@ const UserBtn = (
           <Avatar className={cn("w-8 h-8", className?.avatar)}>
             <AvatarImage className={cn("w-8 h-8", className?.avatar)} src={profile}/>
             <AvatarFallback
-              className={cn("h-8 w-8", className?.avatar)}>{username ? username.charAt(0) : "?"}</AvatarFallback>
+              className={cn("h-8 w-8 text-muted-foreground", className?.avatar)}>{username ? username.charAt(0).toUpperCase() : "?"}</AvatarFallback>
           </Avatar>
           {!avatarOnly && (
             <h3 className={cn("", className?.username)}>{username}</h3>
