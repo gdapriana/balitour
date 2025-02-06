@@ -12,14 +12,13 @@ import Brand from "@/components/ui/brand.tsx";
 import {navigations} from "@/lib/metadata.ts";
 import {Navigation} from "@/lib/types.ts";
 import {Link} from "react-router-dom";
-import UserBtn from "@/components/ui/user-btn.tsx";
 import {useContext, useState} from "react";
 import {AuthContext} from "@/provider/auth.tsx";
 import LogoutAlert from "@/components/ui/logout-alert.tsx";
 
 const Hamburger = ({ className }: {className?:string}) => {
   const [open, setOpen] = useState(false);
-  const { authenticated, username } = useContext(AuthContext);
+  const { authenticated } = useContext(AuthContext);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
