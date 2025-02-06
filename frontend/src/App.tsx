@@ -14,6 +14,7 @@ import { useScroll, useMotionValueEvent } from "motion/react"
 import {ScrollContext} from "@/provider/scroll.tsx";
 import Footer from "@/components/ui/footer.tsx";
 import Login from "@/pages/login/login.tsx";
+import Register from "@/pages/register/register.tsx";
 
 function App() {
   const { loading } = useContext(LoadingContext)
@@ -32,6 +33,7 @@ function App() {
     <div ref={containerRef} className="relative">
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Header />
       <Routes>
