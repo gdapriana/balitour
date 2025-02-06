@@ -102,6 +102,9 @@ class UserService {
     if (!user) throw new ResponseError(404, "user not found");
     await db.user.delete({ where: { username } });
   }
+  static async verify(username) {
+    return db.user.findUnique({where: { username }});
+  }
 }
 
 export default UserService;

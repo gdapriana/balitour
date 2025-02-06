@@ -83,8 +83,13 @@ class UserController {
     }
   }
   static async verify(req, res, next) {
-    const username = req.username;
-    res.status(200).json({ data: username });
+    try {
+      const username = req.username;
+      const response = await UserService.verify(username);
+      res.status(200).json({ data: response });
+    } catch (e) {
+      next(e)
+    }
   }
 }
 

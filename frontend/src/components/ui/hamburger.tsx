@@ -18,7 +18,7 @@ import UserBtn from "@/components/ui/user-btn.tsx";
 
 const Hamburger = ({ className }: {className?:string}) => {
   const [open, setOpen] = useState(false);
-  const { authenticated, username } = useContext(AuthContext);
+  const { authenticated, user } = useContext(AuthContext);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -45,7 +45,7 @@ const Hamburger = ({ className }: {className?:string}) => {
           })}
 
           {authenticated ? (
-            <UserBtn avatarOnly={false} isOpen={true} username={username!} className={{root: "border"}} />
+            <UserBtn avatarOnly={false} isOpen={true} username={user?.username} className={{root: "border"}} />
           ): (
             <Button className="rounded-full" asChild>
               <Link to="/login">

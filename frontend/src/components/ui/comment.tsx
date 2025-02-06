@@ -20,7 +20,7 @@ const Comment = ({ comments, itemName, slug, object }: {
   slug: string;
   object: "destinations" | "cultures" | "stories";
 }) => {
-  const { username, authenticated, token } = useContext(AuthContext);
+  const { user, authenticated, token } = useContext(AuthContext);
 
   return (
     <div className="flex flex-col gap-8 justify-start items-stretch" >
@@ -58,7 +58,7 @@ const Comment = ({ comments, itemName, slug, object }: {
                     <span className="hidden sm:inline">Report</span>
                   </Link>
                 </Button>
-                {authenticated && username === comment.username && (
+                {authenticated && user?.username === comment.username && (
                   <DeleteComment token={token || ""} slug={slug} object={object} id={comment.id} />
                 )}
               </div>

@@ -16,7 +16,7 @@ const Header = () => {
   const { scrolled } = useContext(ScrollContext);
   const location = useLocation();
   const path = location.pathname.split("/")[1]
-  const { authenticated, username } = useContext(AuthContext)
+  const { authenticated, user } = useContext(AuthContext)
 
   return (
     <m.header
@@ -57,7 +57,8 @@ const Header = () => {
             className={{
               root: "border hidden md:flex"
             }}
-            username={username!}
+            profile={user?.profilePicture}
+            username={user?.username}
             avatarOnly={false} />
         ): (
           <Button className="rounded-full hidden md:flex" asChild>

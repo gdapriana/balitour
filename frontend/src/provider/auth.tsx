@@ -1,8 +1,9 @@
 import {createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState} from "react";
+import {User} from "@/lib/types.ts";
 
 interface AuthContextType {
-  username: string | null;
-  setUsername: Dispatch<SetStateAction<string | null>>;
+  user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
   authenticated: boolean;
   setAuthenticated: Dispatch<SetStateAction<boolean>>;
   token: string | null;
@@ -10,8 +11,8 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType>({
-  username: null,
-  setUsername: () => {},
+  user: null,
+  setUser: () => {},
   authenticated: false,
   setAuthenticated: () => {},
   token: null,
@@ -19,7 +20,7 @@ const AuthContext = createContext<AuthContextType>({
 })
 
 const AuthProvider = ({children}: {children: ReactNode}) => {
-  const [username, setUsername] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [token, setToken] = useState(localStorage.getItem("token") || null);
 
@@ -32,11 +33,11 @@ const AuthProvider = ({children}: {children: ReactNode}) => {
 
       if (response.ok) {
         const data = await response.json();
-        setUsername(data.data);
+        setUser(data.data);
         setAuthenticated(true);
       } else {
         setToken(null)
-        setUsername(null);
+        setUser(null);
         setAuthenticated(false);
       }
     })()
@@ -51,7 +52,7 @@ const AuthProvider = ({children}: {children: ReactNode}) => {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  return <AuthContext.Provider value={{ username, setUsername, authenticated, setAuthenticated, token, setToken }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, setUser, authenticated, setAuthenticated, token, setToken }}>{children}</AuthContext.Provider>;
 }
 
 export { AuthContext, AuthProvider };
