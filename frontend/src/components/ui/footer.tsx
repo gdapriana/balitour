@@ -35,7 +35,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-20 bg-stone-950"></div>
+      {/*<div className="w-full h-20 bg-stone-950"></div>*/}
     </footer>
   );
 };
