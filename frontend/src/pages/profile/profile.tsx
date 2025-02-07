@@ -4,9 +4,10 @@ import {AuthContext} from "@/provider/auth.tsx";
 import Header from "@/pages/profile/components/header.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Bookmark, Heart} from "lucide-react";
-import {Destination, Story} from "@/lib/types.ts";
+import {Culture, Destination, Story} from "@/lib/types.ts";
 import StoryCard from "@/components/ui/story-card.tsx";
 import DestinationCard from "@/components/ui/destination-card.tsx";
+import CultureCard from "@/components/ui/cultures-card.tsx";
 
 const Profile = () => {
   const { authenticated, user } = useContext(AuthContext);
@@ -31,18 +32,55 @@ const Profile = () => {
           <Button className="rounded-full" onClick={() => setActiveSection("lc")} variant={activeSection === "lc" ? "outline" : "ghost"} ><Heart /> Cultures</Button>
           <Button className="rounded-full" onClick={() => setActiveSection("ls")} variant={activeSection === "ls" ? "outline" : "ghost"} ><Heart /> Stories</Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      </div>
+      <div className="w-full flex my-4 justify-center items-center">
+        <div className="grid relative w-full gap-2 max-w-5xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {activeSection === "st" && (
             user?.stories?.map((story: Story, index: number) => {
               return (
-                <StoryCard story={story} key={index} />
+                <StoryCard story={story} key={index}/>
               )
             })
           )}
           {activeSection === "fd" && (
-            user?.users_save_destinations?.map((destination: Destination, index: number) => {
+            user?.users_save_destinations?.map((destination: {destination: Destination}, index: number) => {
               return (
-                <DestinationCard destination={destination} key={index} />
+                <DestinationCard destination={destination.destination} key={index}/>
+              )
+            })
+          )}
+          {activeSection === "fc" && (
+            user?.users_save_cultures?.map((culture: {culture: Culture}, index: number) => {
+              return (
+                <CultureCard culture={culture.culture} key={index}/>
+              )
+            })
+          )}
+          {activeSection === "fs" && (
+            user?.users_save_stories?.map((story: {story: Story}, index: number) => {
+              return (
+                <StoryCard story={story.story} key={index}/>
+              )
+            })
+          )}
+          {activeSection === "ld" && (
+            user?.users_like_destinations?.map((destination: {destination: Destination}, index: number) => {
+              return (
+                <DestinationCard destination={destination.destination} key={index}/>
+              )
+            })
+          )}
+          {activeSection === "lc" && (
+            user?.users_like_cultures?.map((culture: {culture: Culture}, index: number) => {
+              return (
+                <CultureCard culture={culture.culture} key={index}/>
+              )
+            })
+          )}
+          {activeSection === "ls" && (
+            user?.users_like_stories?.map((story: {story: Story}, index: number) => {
+              return (
+                <StoryCard story={story.story} key={index}/>
               )
             })
           )}

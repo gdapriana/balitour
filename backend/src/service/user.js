@@ -108,9 +108,12 @@ class UserService {
       include: {
         _count: true,
         stories: true,
-        users_save_stories: true,
-        users_save_destinations: true,
-        users_save_cultures: true,
+        users_save_stories: {select: {story: {include: {_count: true}}}},
+        users_save_destinations: {select: {destination: {include: {_count: true}}}},
+        users_save_cultures: {select: {culture: {include: {_count: true}}}},
+        users_like_destinations: {select: {destination: {include: {_count: true}}}},
+        users_like_cultures: {select: {culture: {include: {_count: true}}}},
+        users_like_stories: {select: {story: {include: {_count: true}}}},
       }
     });
   }
