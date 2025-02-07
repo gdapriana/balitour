@@ -1,5 +1,6 @@
 import CultureService from "../service/culture.js";
 import DestinationService from "../service/destination.js";
+import cloudinary from "../cloudinary.js";
 
 class CultureController {
   static async create(req, res, next) {
@@ -157,6 +158,25 @@ class CultureController {
     } catch (e) {
       next(e)
     }
+  }
+  static async uploadCover(req, res) {
+    const {cover} = req.files;
+    if (!cover) {
+      res.status(400).json({ status: 400, message: "Cover is required" });
+    }
+    await cloudinary.v2.uploader.upload(
+      cover.tempFilePath,
+      {
+        public_id: new Date().getTime(),
+        folder: "cultures/cover",
+      }, (error, result) => {
+        if (error) {
+          res.status(500).json({status: 500, message: "upload failed", error});
+        } else {
+          res.json({status: 200, message: "Success", result});
+        }
+      }
+    )
   }
 }
 export default CultureController;

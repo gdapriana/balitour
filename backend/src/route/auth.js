@@ -15,6 +15,7 @@ authRouter.get("/api/users", authMiddleware, adminMiddleware, UserController.get
 authRouter.delete("/api/logout", authMiddleware, UserController.logout);
 authRouter.delete("/api/users/:username", authMiddleware, adminMiddleware, UserController.delete);
 authRouter.get("/api/verify", authMiddleware, UserController.verify);
+authRouter.post("/api/users/profile-image", authMiddleware, UserController.uploadProfileImage);
 
 authRouter.post("/api/destinations", authMiddleware, adminMiddleware, DestinationController.create);
 authRouter.patch("/api/destinations/:slug", authMiddleware, adminMiddleware, DestinationController.update);
@@ -29,6 +30,7 @@ authRouter.post("/api/destinations/:slug/view", authMiddleware, DestinationContr
 authRouter.get("/api/destinations/:slug/saved", authMiddleware, DestinationController.saved);
 authRouter.get("/api/destinations/:slug/liked", authMiddleware, DestinationController.liked);
 authRouter.get("/api/destinations/:slug/viewed", authMiddleware, DestinationController.viewed);
+authRouter.post("/api/destinations/cover", authMiddleware, adminMiddleware, DestinationController.uploadCover);
 
 authRouter.post("/api/stories", authMiddleware, StoryController.create);
 authRouter.patch("/api/stories/:slug", authMiddleware, StoryController.update);
@@ -43,6 +45,7 @@ authRouter.post("/api/stories/:slug/view", authMiddleware, StoryController.view)
 authRouter.get("/api/stories/:slug/saved", authMiddleware, StoryController.saved);
 authRouter.get("/api/stories/:slug/liked", authMiddleware, StoryController.liked);
 authRouter.get("/api/stories/:slug/viewed", authMiddleware, StoryController.viewed);
+authRouter.post("/api/stories/cover", authMiddleware, StoryController.uploadCover);
 
 authRouter.post("/api/cultures", authMiddleware, adminMiddleware, CultureController.create);
 authRouter.patch("/api/cultures/:slug", authMiddleware, adminMiddleware, CultureController.update);
@@ -57,6 +60,7 @@ authRouter.post("/api/cultures/:slug/view", authMiddleware, CultureController.vi
 authRouter.get("/api/cultures/:slug/saved", authMiddleware, CultureController.saved);
 authRouter.get("/api/cultures/:slug/liked", authMiddleware, CultureController.liked);
 authRouter.get("/api/cultures/:slug/viewed", authMiddleware, CultureController.viewed);
+authRouter.post("/api/cultures/cover", authMiddleware, adminMiddleware, CultureController.uploadCover);
 
 authRouter.post("/api/categories", authMiddleware, adminMiddleware, CategoryController.create);
 authRouter.patch("/api/categories/:slug", authMiddleware, adminMiddleware, CategoryController.update);

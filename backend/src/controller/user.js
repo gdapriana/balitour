@@ -1,4 +1,5 @@
 import UserService from "../service/user.js";
+import cloudinary from "../cloudinary.js";
 
 class UserController {
   static async create(req, res, next) {
@@ -90,6 +91,25 @@ class UserController {
     } catch (e) {
       next(e)
     }
+  }
+  static async uploadProfileImage(req, res) {
+    const {photo} = req.files;
+    if (!photo) {
+      res.status(400).json({ status: 400, message: "Profile Image is required" });
+    }
+    await cloudinary.v2.uploader.upload(
+      photo.tempFilePath,
+      {
+        public_id: new Date().getTime(),
+        folder: "profile",
+      }, (error, result) => {
+        if (error) {
+          res.status(500).json({status: 500, message: "upload failed", error});
+        } else {
+          res.json({status: 200, message: "Success", result});
+        }
+      }
+    )
   }
 }
 
