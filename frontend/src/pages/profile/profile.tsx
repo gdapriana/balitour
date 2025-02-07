@@ -8,6 +8,7 @@ import {Culture, Destination, Story} from "@/lib/types.ts";
 import StoryCard from "@/components/ui/story-card.tsx";
 import DestinationCard from "@/components/ui/destination-card.tsx";
 import CultureCard from "@/components/ui/cultures-card.tsx";
+import Brand from "@/components/ui/brand.tsx";
 
 const Profile = () => {
   const { authenticated, user } = useContext(AuthContext);
@@ -33,51 +34,51 @@ const Profile = () => {
           <Button className="rounded-full" onClick={() => setActiveSection("ls")} variant={activeSection === "ls" ? "outline" : "ghost"} ><Heart /> Stories</Button>
         </div>
       </div>
-      <div className="w-full flex my-4 justify-center items-center">
+      <div className="w-full flex-col flex my-4 justify-center items-center">
         <div className="grid relative w-full gap-2 max-w-5xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {activeSection === "st" && (
+          {activeSection === "st" && user?.stories.length !== 0 && (
             user?.stories?.map((story: Story, index: number) => {
               return (
                 <StoryCard story={story} key={index}/>
               )
             })
           )}
-          {activeSection === "fd" && (
+          {activeSection === "fd" && user?.users_save_destinations?.length !== 0 && (
             user?.users_save_destinations?.map((destination: {destination: Destination}, index: number) => {
               return (
                 <DestinationCard destination={destination.destination} key={index}/>
               )
             })
           )}
-          {activeSection === "fc" && (
+          {activeSection === "fc" && user?.users_save_cultures?.length !== 0 && (
             user?.users_save_cultures?.map((culture: {culture: Culture}, index: number) => {
               return (
                 <CultureCard culture={culture.culture} key={index}/>
               )
             })
           )}
-          {activeSection === "fs" && (
+          {activeSection === "fs" && user?.users_save_stories?.length !== 0 && (
             user?.users_save_stories?.map((story: {story: Story}, index: number) => {
               return (
                 <StoryCard story={story.story} key={index}/>
               )
             })
           )}
-          {activeSection === "ld" && (
+          {activeSection === "ld" && user?.users_like_destinations?.length !== 0 && (
             user?.users_like_destinations?.map((destination: {destination: Destination}, index: number) => {
               return (
                 <DestinationCard destination={destination.destination} key={index}/>
               )
             })
           )}
-          {activeSection === "lc" && (
+          {activeSection === "lc" && user?.users_like_cultures?.length !== 0 && (
             user?.users_like_cultures?.map((culture: {culture: Culture}, index: number) => {
               return (
                 <CultureCard culture={culture.culture} key={index}/>
               )
             })
           )}
-          {activeSection === "ls" && (
+          {activeSection === "ls" && user?.users_like_stories?.length !== 0 && (
             user?.users_like_stories?.map((story: {story: Story}, index: number) => {
               return (
                 <StoryCard story={story.story} key={index}/>
@@ -85,6 +86,41 @@ const Profile = () => {
             })
           )}
         </div>
+        {activeSection === "st" && user?.stories.length === 0 && (
+          <div className="w-full h-[400px] flex justify-center items-center flex-col">
+            <Brand headline="Empty" direction="col" />
+          </div>
+        )}
+        {activeSection === "fd" && user?.users_save_destinations?.length === 0 && (
+          <div className="w-full h-[400px] flex justify-center items-center flex-col">
+            <Brand headline="Empty" direction="col" />
+          </div>
+        )}
+        {activeSection === "fc" && user?.users_save_cultures?.length === 0 && (
+          <div className="w-full h-[400px] flex justify-center items-center flex-col">
+            <Brand headline="Empty" direction="col" />
+          </div>
+        )}
+        {activeSection === "fs" && user?.users_save_stories?.length === 0 && (
+          <div className="w-full h-[400px] flex justify-center items-center flex-col">
+            <Brand headline="Empty" direction="col" />
+          </div>
+        )}
+        {activeSection === "ld" && user?.users_like_destinations?.length === 0 && (
+          <div className="w-full h-[400px] flex justify-center items-center flex-col">
+            <Brand headline="Empty" direction="col" />
+          </div>
+        )}
+        {activeSection === "lc" && user?.users_like_cultures?.length === 0 && (
+          <div className="w-full h-[400px] flex justify-center items-center flex-col">
+            <Brand headline="Empty" direction="col" />
+          </div>
+        )}
+        {activeSection === "ls" && user?.users_like_stories?.length === 0 && (
+          <div className="w-full h-[400px] flex justify-center items-center flex-col">
+            <Brand headline="Empty" direction="col" />
+          </div>
+        )}
       </div>
     </div>
   );
