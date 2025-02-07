@@ -23,7 +23,7 @@ const Comment = ({ comments, itemName, slug, object }: {
   const { user, authenticated, token } = useContext(AuthContext);
 
   return (
-    <div className="flex flex-col gap-8 justify-start items-stretch" >
+    <div id="comment" className="flex flex-col gap-8 justify-start items-stretch" >
       <div className="flex items-center justify-between">
         <h1 className="font-bold flex justify-start gap-1 items-center lg:text-2xl text-xl"><MessageCircle/>Comment</h1>
         {authenticated ? (

@@ -51,7 +51,11 @@ const Action = ({ destination }: {destination: Destination | undefined}) => {
           ): (
             <LikeAlert object="destinations" slug={destination?.slug} itemName={destination?.name} token={token!} likedCount={destination?._count.users_like_destinations} />
           )}
-          <Button className="rounded-full"><MessageCircle/>{destination?._count.users_comment_destinations} <span className="hidden md:inline">Users commented</span></Button>
+          <Button asChild className="rounded-full">
+            <a href="#comment">
+              <MessageCircle/>{destination?._count.users_comment_destinations} <span className="hidden md:inline">Users commented</span>
+            </a>
+          </Button>
         </>
       ): (
         <>

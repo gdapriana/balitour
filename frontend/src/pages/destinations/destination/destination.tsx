@@ -21,6 +21,7 @@ const Destination = () => {
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
   }, []);
+
   useEffect(() => {
     async function getData() {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations/${slug}`)

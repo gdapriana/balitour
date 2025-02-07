@@ -50,7 +50,11 @@ const Action = ({ culture }: {culture: Culture | undefined}) => {
           ): (
             <LikeAlert object="cultures" slug={culture?.slug} itemName={culture?.name} token={token!} likedCount={culture?._count.users_like_cultures} />
           )}
-          <Button className="rounded-full"><MessageCircle/>{culture?._count.users_comment_cultures} <span className="hidden md:inline">Users commented</span></Button>
+          <Button asChild className="rounded-full">
+            <a href="#comment">
+              <MessageCircle/>{culture?._count.users_comment_cultures} <span className="hidden md:inline">Users commented</span>
+            </a>
+          </Button>
         </>
       ): (
         <>

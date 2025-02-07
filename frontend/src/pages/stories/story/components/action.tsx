@@ -52,7 +52,11 @@ const Action = ({ story }: {story: Story | undefined}) => {
           ): (
             <LikeAlert object="stories" slug={story?.slug} itemName={story?.name} token={token!} likedCount={story?._count.users_like_stories} />
           )}
-          <Button className="rounded-full"><MessageCircle/>{story?._count.users_comment_stories} <span className="hidden md:inline">Users commented</span></Button>
+          <Button asChild className="rounded-full">
+            <a href="#comment">
+              <MessageCircle/>{story?._count.users_comment_stories} <span className="hidden md:inline">Users commented</span>
+            </a>
+          </Button>
         </>
       ): (
         <>
