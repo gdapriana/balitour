@@ -21,7 +21,9 @@ class StoryService {
       include: {
         _count: true,
         User: true,
-        users_comment_stories: true,
+        users_comment_stories: {
+          include: {user: {select: {username: true, profilePicture: true}}}
+        },
         users_like_stories: true,
         users_save_stories: true,
         users_view_stories: true

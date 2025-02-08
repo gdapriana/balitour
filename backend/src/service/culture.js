@@ -21,7 +21,9 @@ class CultureService {
       include: {
         _count: true,
         District: true,
-        users_comment_cultures: true,
+        users_comment_cultures: {
+          include: {user: {select: {username: true, profilePicture: true}}}
+        },
         users_like_cultures: true,
         users_save_cultures: true,
         users_view_cultures: true,

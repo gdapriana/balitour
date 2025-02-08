@@ -3,7 +3,6 @@ import DestinationValidation from "../validation/destination.js";
 import db from "../application/database.js";
 import slugify from "slugify";
 import ResponseError from "../error/response.js";
-import req from "express/lib/request.js";
 
 class DestinationService {
   static async create(req) {
@@ -25,7 +24,9 @@ class DestinationService {
         Category: true,
         users_like_destinations: true,
         users_view_destinations: true,
-        users_comment_destinations: true
+        users_comment_destinations:{
+          include: {user: {select: {username: true, profilePicture: true}}}
+        }
       },
     });
     if (!destination) throw new ResponseError(404, "destination not found");
