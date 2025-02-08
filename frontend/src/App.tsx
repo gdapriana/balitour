@@ -34,11 +34,6 @@ function App() {
     <div ref={containerRef} className="relative">
       <Header />
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-      <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/destinations" element={<Destinations />} />
         <Route path="/destinations/:slug" element={<Destination />} />
@@ -46,6 +41,9 @@ function App() {
         <Route path="/cultures/:slug" element={<Culture />} />
         <Route path="/stories" element={<Stories />} />
         <Route path="/stories/:slug" element={<Story />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer />
     </div>

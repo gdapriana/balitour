@@ -1,35 +1,53 @@
 import {Gender, User} from "@/lib/types.ts";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {Label} from "@/components/ui/label.tsx";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
 import {Button} from "@/components/ui/button.tsx";
+import {AuthContext} from "@/provider/auth.tsx";
+import {useNavigate} from "react-router-dom";
 
-const EditProfileForm = ({ user }: { user: User}) => {
+const EditProfileForm = ({ user }: { user: User | null}) => {
 
-  const [picture] = useState<string | undefined>(user.profilePicture);
-  const [name] = useState<string | undefined>(user.name);
-  const [email] = useState<string | undefined>(user.email);
-  const [phone] = useState<string | undefined>(user.phoneNumber);
-  const [gender] = useState<Gender | undefined>(user.gender);
+  const { token } = useContext(AuthContext)
+  const navigate = useNavigate()
 
-  const submitForm = (event: any) => {
+  const [picture] = useState<string | undefined>(user?.profilePicture);
+  const [name] = useState<string | undefined>(user?.name);
+  const [email] = useState<string | undefined>(user?.email);
+  const [phone] = useState<string | undefined>(user?.phoneNumber);
+  const [gender] = useState<Gender | undefined>(user?.gender);
+
+  const submitForm = async (event: any) => {
     event.preventDefault();
-    console.log({
+    const body = {
       name: event.currentTarget.name.value === "" ? undefined : event.currentTarget.name.value,
       email: event.currentTarget.email.value === "" ? undefined : event.currentTarget.email.value,
-      phone: event.currentTarget.phone.value === "" ? undefined : event.currentTarget.phone.value,
-      picture: event.currentTarget.picture.value === "" ? undefined : event.currentTarget.picture.value,
-      gender: event.currentTarget.gender.value === "" ? undefined : event.currentTarget.gender.value,
-    })
+      phoneNumber: event.currentTarget.phone.value === "" ? undefined : event.currentTarget.phone.value,
+      profilePicture: event.currentTarget.picture.value === "" ? undefined : event.currentTarget.picture.value,
+      gender: event.currentTarget.gender.value === "0" ? null : event.currentTarget.gender.value,
+    }
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_PUBLIC_API}/users/${user?.username}`, {
+        method: "PATCH",
+        headers: { Authorization: token!, "Content-Type": "application/json"},
+        body: JSON.stringify(body),
+      });
+      if (response.ok) {
+        navigate(0)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
     <form onSubmit={submitForm} className="w-full flex flex-col my-4 justify-start items-stretch gap-2">
       <div className="flex justify-center pb-4 gap-4 items-center">
         <Avatar className="w-16 h-16">
-          <AvatarFallback className="text-muted-foreground">{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+          <AvatarFallback className="text-muted-foreground">{user?.username.charAt(0).toUpperCase()}</AvatarFallback>
           <AvatarImage src={picture} />
         </Avatar>
         <Input name="picture" className="rounded-full w-full max-w-xs" type="file" accept="image/png, image/gif, image/jpeg" />

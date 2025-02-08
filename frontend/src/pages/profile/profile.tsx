@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "@/provider/auth.tsx";
 import Header from "@/pages/profile/components/header.tsx";
 import {Button} from "@/components/ui/button.tsx";
@@ -15,14 +15,16 @@ const Profile = () => {
   const navigate = useNavigate()
   const [activeSection, setActiveSection] = useState<"st" | "fd" | "fc" | "fs" | "ld" | "lc" | "ls" >("st");
 
-  if (!authenticated) {
-    return navigate("/login");
-  }
+  useEffect(() => {
+    if (!authenticated) {
+      navigate("/login");
+    }
+  }, [authenticated, navigate]);
 
   return (
     <div>
-      <Header user={user!} />
-      <div className="w-full mt-10 gap-2 flex justify-center items-center">
+      <Header user={user} />
+      <div className="w-full mt-10 gap-2 p-4 flex justify-center items-center">
         <div className="flex border-y py-4 gap-1 overflow-auto justify-start lg:justify-center items-center w-full max-w-5xl">
           <Button className="rounded-full" onClick={() => setActiveSection("st")} variant={activeSection === "st" ? "outline" : "ghost"}>Your Story</Button>
           <Button className="rounded-full" onClick={() => setActiveSection("fd")} variant={activeSection === "fd" ? "outline" : "ghost"}><Bookmark /> Destination</Button>
@@ -33,7 +35,7 @@ const Profile = () => {
           <Button className="rounded-full" onClick={() => setActiveSection("ls")} variant={activeSection === "ls" ? "outline" : "ghost"} ><Heart /> Stories</Button>
         </div>
       </div>
-      <div className="w-full flex-col flex my-4 justify-center items-center">
+      <div className="w-full p-4 flex-col flex my-4 justify-center items-center">
         <div className="grid relative w-full gap-2 max-w-5xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {activeSection === "st" && user?.stories.length !== 0 && (
             user?.stories?.map((story: Story, index: number) => {

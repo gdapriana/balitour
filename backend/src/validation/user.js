@@ -22,7 +22,7 @@ class UserValidation {
     email: z.string().email().optional(),
     profilePicture: z.string().url().min(4).optional(),
     phoneNumber: z.string().min(3).optional(),
-    gender: z.string().min(3).optional(),
+    gender: z.string().or(z.null()).optional(),
   })
   static GETS = z.object({
     count: z.number().min(1).optional(),

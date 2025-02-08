@@ -36,6 +36,7 @@ const FavoritedStoriesDesktop = ({stories}:{stories: Story[]}) => {
         {stories.map((story: Story, index: number) => {
           return (
             <m.div
+              key={index}
               animate={activeStory === index ? {width: "43%"} : {width: "19%"}}
               transition={{duration: 1, ease: "anticipate"}}
               onMouseEnter={() => setActiveStory(index)}

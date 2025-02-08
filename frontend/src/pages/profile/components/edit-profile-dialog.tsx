@@ -11,8 +11,7 @@ import {Settings} from "lucide-react";
 import {User} from "@/lib/types.ts";
 import EditProfileForm from "@/pages/profile/components/edit-profile-form.tsx";
 
-const EditProfileDialog = ({ user }: { user: User }) => {
-
+const EditProfileDialog = ({ user }: { user: User | null }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>

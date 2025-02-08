@@ -21,7 +21,6 @@ const Comment = ({ comments, itemName, slug, object }: {
   object: "destinations" | "cultures" | "stories";
 }) => {
   const { user, authenticated, token } = useContext(AuthContext);
-
   return (
     <div id="comment" className="flex flex-col gap-8 justify-start items-stretch" >
       <div className="flex items-center justify-between">
@@ -47,7 +46,7 @@ const Comment = ({ comments, itemName, slug, object }: {
           return (
             <article key={index} className="flex gap-6 border-b py-6 flex-col justify-start items-stretch">
               <div className="flex justify-start items-center">
-                <UserBtn avatarOnly={false} username={comment.username} className={{root: "px-0", username: "font-bold text-lg"}} isOpen={false} />
+                <UserBtn avatarOnly={false} username={comment.username} profile={comment?.user?.profilePicture} className={{root: "px-0", username: "font-bold text-lg"}} isOpen={false} />
                 <p className="text-muted-foreground line-clamp-1">{moment(comment.createdAt).fromNow()}</p>
               </div>
               <p>{comment.body}</p>
