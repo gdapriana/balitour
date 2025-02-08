@@ -1,7 +1,8 @@
 import {User} from "@/lib/types.ts";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import {Plus, Settings} from "lucide-react";
+import {Plus} from "lucide-react";
+import EditProfileDialog from "@/pages/profile/components/edit-profile-dialog.tsx";
 
 const Header = ({user}: {user: User}) => {
   return (
@@ -19,10 +20,7 @@ const Header = ({user}: {user: User}) => {
               <Plus/>
               Post Story
             </Button>
-            <Button variant="outline" className="rounded-full">
-              <Settings />
-              Edit Profile
-            </Button>
+            <EditProfileDialog user={user} />
           </div>
         </div>
       </div>

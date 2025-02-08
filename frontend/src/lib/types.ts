@@ -253,7 +253,7 @@ export interface users_view_cultures {
   culture: Culture;
 }
 
-enum Gender {
+export enum Gender {
   MALE = "MALE",
   FEMALE = "FEMALE",
 }

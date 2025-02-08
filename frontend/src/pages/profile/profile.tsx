@@ -19,7 +19,6 @@ const Profile = () => {
     return navigate("/login");
   }
 
-  console.log({user})
   return (
     <div>
       <Header user={user!} />
