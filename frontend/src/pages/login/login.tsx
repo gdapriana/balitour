@@ -1,14 +1,19 @@
 import Brand from "@/components/ui/brand.tsx";
 import LoginForm from "@/pages/login/components/login-form.tsx";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "@/provider/auth.tsx";
-import {Link, Navigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Button} from "@/components/ui/button.tsx";
 
 const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setToken, authenticated } = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  if (authenticated) {
+    navigate("/", {replace: true})
+  }
 
   const handleLogin = async () => {
     try {
@@ -31,14 +36,6 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    handleLogin().then()
-  }, [username, password, handleLogin]);
-
-  if (authenticated) {
-    return <Navigate to="/" replace />;
-  }
-
   return (
     <div className="absolute w-full flex justify-center items-center bg-primary-foreground top-0 z-[99999] left-0 h-screen">
       <div
@@ -50,8 +47,9 @@ const Login = () => {
         </Button>
         <Brand headline={import.meta.env.VITE_PUBLIC_APP} direction="col" />
         <p className="text-muted-foreground text-center w-full">Your Ultimate Guide to Bali’s Best Destinations, Traditions, and Stories</p>
-        <div className="w-full max-w-sm mt-10">
+        <div className="w-full flex flex-col justify-start items-stretch gap-4 max-w-sm mt-10">
           <LoginForm setPassword={setPassword} setUsername={setUsername} />
+          <Button onClick={handleLogin}>Login</Button>
         </div>
         <p className="mt-4 text-muted-foreground">Dont have {import.meta.env.VITE_PUBLIC_APP} account? <Link className="text-primary font-bold" to="/register">Register</Link></p>
       </div>

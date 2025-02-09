@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "@/provider/auth.tsx";
 import Header from "@/pages/profile/components/header.tsx";
 import {Button} from "@/components/ui/button.tsx";
@@ -15,11 +15,7 @@ const Profile = () => {
   const navigate = useNavigate()
   const [activeSection, setActiveSection] = useState<"st" | "fd" | "fc" | "fs" | "ld" | "lc" | "ls" >("st");
 
-  useEffect(() => {
-    if (!authenticated) {
-      navigate("/login");
-    }
-  }, [authenticated, navigate]);
+  if (!authenticated) navigate("/login", {replace: true});
 
   return (
     <div>

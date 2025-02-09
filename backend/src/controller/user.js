@@ -93,6 +93,7 @@ class UserController {
     }
   }
   static async uploadProfileImage(req, res) {
+    console.log({reqfelss: req.files});
     const {photo} = req.files;
     if (!photo) {
       res.status(400).json({ status: 400, message: "Profile Image is required" });

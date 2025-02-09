@@ -1,68 +1,24 @@
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import {Dispatch, SetStateAction} from "react";
+import {Label} from "@/components/ui/label.tsx";
+import {Input} from "@/components/ui/input.tsx";
 
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  password: z.string().min(5).max(100),
-})
-
-const LoginForm = ({ setUsername, setPassword } : { setUsername: Dispatch<SetStateAction<string>>; setPassword: Dispatch<SetStateAction<string>> }) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-      password: "",
-    },
-  })
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setUsername(values.username)
-    setPassword(values.password)
-  }
+const LoginForm = ({setPassword, setUsername}: {
+  setPassword: Dispatch<SetStateAction<string>>;
+  setUsername: Dispatch<SetStateAction<string>>;
+}) => {
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col justify-start items-stretch gap-4">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input className="rounded-full" placeholder="Your Username" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input className="rounded-full" type="password" placeholder="Your Password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button className="rounded-full mt-4" type="submit">Login</Button>
-      </form>
-    </Form>
+    <div className="w-full flex flex-col gap-4 justify-start items-stretch">
+      <div className="flex justify-start items-start flex-col gap-2">
+        <Label htmlFor="username" className="font-bold">Username</Label>
+        <Input onChange={(e) => setUsername(e.target.value)} required name="Your username" id="username"
+               className="rounded-full" placeholder="Your name"/>
+      </div>
+      <div className="flex justify-start items-start flex-col gap-2">
+        <Label htmlFor="password" className="font-bold">Password</Label>
+        <Input onChange={(e) => setPassword(e.target.value)} required name="Your password" id="password"
+               className="rounded-full" placeholder="Your password" type="password"/>
+      </div>
+    </div>
   );
 };
 

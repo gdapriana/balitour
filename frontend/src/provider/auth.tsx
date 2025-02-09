@@ -1,5 +1,6 @@
-import {createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState} from "react";
+import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState} from "react";
 import {User} from "@/lib/types.ts";
+import {LoadingContext} from "@/provider/loading.tsx";
 
 interface AuthContextType {
   user: User | null;
@@ -23,6 +24,7 @@ const AuthProvider = ({children}: {children: ReactNode}) => {
   const [user, setUser] = useState<User | null>(null);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const {setLoading} = useContext(LoadingContext);
 
   useEffect(() => {
     (async function() {
@@ -35,10 +37,12 @@ const AuthProvider = ({children}: {children: ReactNode}) => {
         const data = await response.json();
         setUser(data.data);
         setAuthenticated(true);
+        setLoading(false);
       } else {
         setToken(null)
         setUser(null);
         setAuthenticated(false);
+        setLoading(false);
       }
     })()
   }, [token]);

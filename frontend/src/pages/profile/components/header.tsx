@@ -11,7 +11,7 @@ const Header = ({user}: {user: User | null}) => {
         <div className="flex flex-col justify-start items-center">
           <Avatar className="md:w-16 md:h-16">
             <AvatarFallback className="text-muted-foreground">{user?.username.charAt(0).toUpperCase()}</AvatarFallback>
-            <AvatarImage src={user?.profilePicture} />
+            <AvatarImage className="bg-cover object-cover" src={user?.profilePicture} />
           </Avatar>
           <h1 className="font-bold md:text-lg mt-2">{user?.name}</h1>
           <p className="text-muted-foreground">@{user?.username} | {user?.gender === "MALE" ? "male" : user?.gender === "FEMALE" ? "female" : "gender notset"} | {user?.phoneNumber ? user.phoneNumber : "phone notset"}</p>

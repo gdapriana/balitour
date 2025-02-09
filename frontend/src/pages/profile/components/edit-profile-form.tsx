@@ -5,41 +5,62 @@ import {Input} from "@/components/ui/input.tsx";
 import {Label} from "@/components/ui/label.tsx";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
 import {Button} from "@/components/ui/button.tsx";
+import {LoadingContext} from "@/provider/loading.tsx";
 import {AuthContext} from "@/provider/auth.tsx";
 import {useNavigate} from "react-router-dom";
 
 const EditProfileForm = ({ user }: { user: User | null}) => {
 
-  const { token } = useContext(AuthContext)
-  const navigate = useNavigate()
-
-  const [picture] = useState<string | undefined>(user?.profilePicture);
-  const [name] = useState<string | undefined>(user?.name);
-  const [email] = useState<string | undefined>(user?.email);
-  const [phone] = useState<string | undefined>(user?.phoneNumber);
-  const [gender] = useState<Gender | undefined>(user?.gender);
+  const { setLoading } = useContext(LoadingContext);
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [profilePicture, setProfilePicture] = useState<File>();
+  const [name, setName] = useState<string | undefined>(user?.name);
+  const [email, setEmail] = useState<string | undefined>(user?.email);
+  const [phoneNumber, setPhoneNumber] = useState<string | undefined>(user?.phoneNumber);
+  const [gender, setGender] = useState<Gender | undefined | string | null>(user?.gender);
 
   const submitForm = async (event: any) => {
     event.preventDefault();
-    const body = {
-      name: event.currentTarget.name.value === "" ? undefined : event.currentTarget.name.value,
-      email: event.currentTarget.email.value === "" ? undefined : event.currentTarget.email.value,
-      phoneNumber: event.currentTarget.phone.value === "" ? undefined : event.currentTarget.phone.value,
-      profilePicture: event.currentTarget.picture.value === "" ? undefined : event.currentTarget.picture.value,
-      gender: event.currentTarget.gender.value === "0" ? null : event.currentTarget.gender.value,
-    }
-
+    setLoading(true);
+    if (gender === "0") setGender(null)
     try {
-      const response = await fetch(`${import.meta.env.VITE_PUBLIC_API}/users/${user?.username}`, {
-        method: "PATCH",
-        headers: { Authorization: token!, "Content-Type": "application/json"},
-        body: JSON.stringify(body),
-      });
-      if (response.ok) {
+      let imageUrl = null;
+      if (profilePicture) {
+        const formData = new FormData();
+        formData.append('photo', profilePicture);
+        const uploadResponse = await fetch(`${import.meta.env.VITE_PUBLIC_API}/users/profile-image`, {
+          method: 'POST',
+          headers: {
+            Authorization: token!
+          },
+          body: formData,
+        })
+        if (uploadResponse.ok) {
+          const data = await uploadResponse.json();
+          imageUrl = data.result.secure_url;
+        }
+      }
+
+      const updateResponse = await fetch(`${import.meta.env.VITE_PUBLIC_API}/users/${user?.username}`, {
+        method: 'PATCH',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token!
+        },
+        body: JSON.stringify({
+          name, email, phoneNumber, gender, profilePicture: imageUrl
+        })
+      })
+
+      if (updateResponse.ok) {
         navigate(0)
       }
+
     } catch (error) {
-      console.log(error)
+      console.error('Error updating profile:', error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -48,26 +69,36 @@ const EditProfileForm = ({ user }: { user: User | null}) => {
       <div className="flex justify-center pb-4 gap-4 items-center">
         <Avatar className="w-16 h-16">
           <AvatarFallback className="text-muted-foreground">{user?.username.charAt(0).toUpperCase()}</AvatarFallback>
-          <AvatarImage src={picture} />
+          <AvatarImage className="bg-cover object-cover" src={user?.profilePicture} />
         </Avatar>
-        <Input name="picture" className="rounded-full w-full max-w-xs" type="file" accept="image/png, image/gif, image/jpeg" />
+        <Input
+          onChange={(e) => {
+            if (e.target.files && e.target.files[0]) {
+              setProfilePicture(e.target.files[0]);
+            }
+          }}
+          name="picture"
+          className="rounded-full w-full max-w-xs"
+          type="file"
+          accept="image/png, image/gif, image/jpeg"
+        />
       </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 my-2">
         <div className="flex justify-start items-start flex-col gap-2">
           <Label htmlFor="name" className="font-bold">Name</Label>
-          <Input required name="name" id="name" className="rounded-full" placeholder="Your name" defaultValue={name}/>
+          <Input onChange={(e) => setName(e.target.value)} required name="name" id="name" className="rounded-full" placeholder="Your name" defaultValue={name}/>
         </div>
         <div className="flex justify-start items-start flex-col gap-2">
           <Label htmlFor="email" className="font-bold">Email</Label>
-          <Input name="email" id="email" className="rounded-full" type="email" placeholder="Your email" defaultValue={email}/>
+          <Input onChange={(e) => setEmail(e.target.value)} name="email" id="email" className="rounded-full" type="email" placeholder="Your email" defaultValue={email}/>
         </div>
         <div className="flex justify-start items-start flex-col gap-2">
           <Label htmlFor="phone" className="font-bold">Phone</Label>
-          <Input name="phone" id="phone" className="rounded-full" type="number" placeholder="Your phone" defaultValue={phone}/>
+          <Input onChange={(e) => setPhoneNumber(e.target.value)} name="phone" id="phone" className="rounded-full" type="number" placeholder="Your phone" defaultValue={phoneNumber}/>
         </div>
         <div className="flex justify-start items-start flex-col gap-2">
           <Label htmlFor="gender" className="font-bold">Gender</Label>
-          <Select name="gender" defaultValue={gender ? gender : undefined}>
+          <Select onValueChange={(e) => setGender(e as Gender)} name="gender" defaultValue={gender ? gender : undefined}>
             <SelectTrigger className="rounded-full">
               <SelectValue placeholder="Select Gender" />
             </SelectTrigger>
