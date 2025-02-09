@@ -4,11 +4,13 @@ import {useContext, useState} from "react";
 import {AuthContext} from "@/provider/auth.tsx";
 import {Link, useNavigate} from "react-router-dom";
 import {Button} from "@/components/ui/button.tsx";
+import {LoadingContext} from "@/provider/loading.tsx";
 
 const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setToken, authenticated } = useContext(AuthContext)
+  const { setLoading } = useContext(LoadingContext)
   const navigate = useNavigate()
 
   if (authenticated) {
@@ -16,6 +18,7 @@ const Login = () => {
   }
 
   const handleLogin = async () => {
+    setLoading(true)
     try {
       const response = await fetch(`${import.meta.env.VITE_PUBLIC_API}/login`, {
         method: "POST",
@@ -28,6 +31,7 @@ const Login = () => {
         const data = await response.json();
         localStorage.setItem("token", data.data.token);
         setToken(data.data.token);
+        setLoading(false)
       } else {
         console.error("Login failed");
       }

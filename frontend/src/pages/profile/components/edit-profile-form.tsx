@@ -49,7 +49,11 @@ const EditProfileForm = ({ user }: { user: User | null}) => {
           Authorization: token!
         },
         body: JSON.stringify({
-          name, email, phoneNumber, gender, profilePicture: imageUrl
+          name,
+          email: email !== "" ? email : null,
+          phoneNumber: phoneNumber !== "" ? phoneNumber : null,
+          gender: gender === "0" ? null : gender,
+          profilePicture: imageUrl !== null ? imageUrl : undefined,
         })
       })
 

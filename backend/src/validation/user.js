@@ -19,9 +19,9 @@ class UserValidation {
   static UPDATE = z.object({
     name: z.string().min(3).optional(),
     password : z.string().min(3).optional(),
-    email: z.string().email().optional(),
-    profilePicture: z.string().url().min(4).optional(),
-    phoneNumber: z.string().min(3).optional(),
+    email: z.string().email().or(z.null()).optional(),
+    profilePicture: z.string().url().or(z.null()).optional(),
+    phoneNumber: z.string().or(z.null()).optional(),
     gender: z.string().or(z.null()).optional(),
   })
   static GETS = z.object({
