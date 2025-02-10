@@ -33,7 +33,6 @@ const Culture = () => {
     }
     getData().then();
   }, [slug, setLoading]);
-
   useEffect(() => {
     async function getData() {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/cultures?count=4`)
@@ -45,7 +44,6 @@ const Culture = () => {
     }
     getData().then();
   }, [setLoading]);
-
   useEffect(() => {
     async function getData() {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/categories?count=8`)
@@ -61,6 +59,8 @@ const Culture = () => {
   if (!culture) {
     return <NotFound />;
   }
+
+  console.log(culture)
 
   return (
     <div>

@@ -115,7 +115,7 @@ model Culture {
   District               District?                @relation(fields: [districtSlug], references: [slug], onDelete: Cascade)
   Story                  Story[]
   Source                 Source[]
-  images                 Image[]
+  Images                 Image[]
 
   @@map("cultures")
 }

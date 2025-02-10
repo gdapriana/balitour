@@ -27,6 +27,9 @@ class CultureService {
         users_like_cultures: true,
         users_save_cultures: true,
         users_view_cultures: true,
+        images: true,
+        Source: true,
+        Story: true,
       },
     });
     if (!culture) throw new ResponseError(404, "culture not found");

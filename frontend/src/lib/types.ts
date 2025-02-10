@@ -1,6 +1,11 @@
-export interface Navigation {
-  title: string;
-  path: string;
+export enum Gender {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+}
+
+export enum Role {
+  ADMIN = "ADMIN",
+  BASIC = "BASIC",
 }
 
 export interface User {
@@ -9,26 +14,41 @@ export interface User {
   updatedAt: Date;
   username: string;
   password: string;
-  name?: string;
-  email?: string;
-  profilePicture?: string;
-  phoneNumber?: string;
-  gender?: Gender;
-  token?: string;
+  name?: string | null;
+  email?: string | null;
+  profilePicture?: string | null;
+  phoneNumber?: string | null;
+  gender?: Gender | null;
+  token?: string | null;
   role: Role;
-  stories: Story[];
-  users_comment_stories: users_comment_stories[];
-  users_like_stories: users_like_stories[];
-  users_save_stories: users_save_stories[];
-  users_view_stories: users_view_stories[];
-  users_comment_destinations: users_comment_destinations[];
-  users_like_destinations: users_like_destinations[];
-  users_save_destinations: users_save_destinations[];
-  users_view_destinations: users_view_destinations[];
-  users_comment_cultures: users_comment_cultures[];
-  users_like_cultures: users_like_cultures[];
-  users_save_cultures: users_save_cultures[];
-  users_view_cultures: users_view_cultures[];
+  stories?: Story[];
+  _count: {
+    stories: number;
+    users_comment_cultures: number;
+    users_comment_destinations: number;
+    users_comment_stories: number;
+    users_like_cultures: number;
+    users_like_destinations: number;
+    users_like_stories: number;
+    users_save_cultures: number;
+    users_save_destinations: number;
+    users_save_stories: number;
+    users_view_cultures: number;
+    users_view_destinations: number;
+    users_view_stories: number;
+  }
+  users_comment_stories?: UsersCommentStories[];
+  users_like_stories?: UsersLikeStories[];
+  users_save_stories?: UsersSaveStories[];
+  users_view_stories?: UsersViewStories[];
+  users_comment_destinations?: UsersCommentDestinations[];
+  users_like_destinations?: UsersLikeDestinations[];
+  users_save_destinations?: UsersSaveDestinations[];
+  users_view_destinations?: UsersViewDestinations[];
+  users_comment_cultures?: UsersCommentCultures[];
+  users_like_cultures?: UsersLikeCultures[];
+  users_save_cultures?: UsersSaveCultures[];
+  users_view_cultures?: UsersViewCultures[];
 }
 
 export interface Story {
@@ -42,17 +62,27 @@ export interface Story {
   body: string;
   readingTime: number;
   username: string;
-  _count: {
-    users_comment_stories: number;
-    users_like_stories: number;
-    users_save_stories: number;
-    users_view_stories: number;
-  };
-  users_comment_stories: users_comment_stories[];
-  users_like_stories: users_like_stories[];
-  users_save_stories: users_save_stories[];
-  users_view_stories: users_view_stories[];
   User?: User;
+  relatedDestinationSlug?: string | null;
+  Destination?: Destination | null;
+  relatedCultureSlug?: string | null;
+  Culture?: Culture | null;
+  relatedDistrictSlug?: string | null;
+  District?: District | null;
+  Source?: Source[];
+  Image?: Image[];
+  _count: {
+    Source: number
+    Images: number
+    users_comment_stories: number
+    users_likestories: number
+    users_savestories: number
+    users_viewstories: number
+  };
+  users_comment_stories?: UsersCommentStories[];
+  users_like_stories?: UsersLikeStories[];
+  users_save_stories?: UsersSaveStories[];
+  users_view_stories?: UsersViewStories[];
 }
 
 export interface Destination {
@@ -64,22 +94,28 @@ export interface Destination {
   description: string;
   cover: string;
   address: string;
-  price?: number;
+  price?: number | null;
   map: string;
+  districtSlug?: string | null;
+  categorySlug?: string | null;
+  District?: District | null;
+  Category?: Category | null;
+  Story?: Story[];
+  Source?: Source[];
+  Image?: Image[];
   _count: {
-    users_comment_destinations: number;
-    users_like_destinations: number;
-    users_save_destinations: number;
-    users_view_destinations: number;
+    Source: number
+    Story: number
+    Images: number
+    users_comment_destinations: number
+    users_like_destinaions: number
+    users_save_destinaions: number
+    users_view_destinaions: number
   };
-  users_comment_destinations: users_comment_destinations[];
-  users_like_destinations: users_like_destinations[];
-  users_save_destinations: users_save_destinations[];
-  users_view_destinations: users_view_destinations[];
-  District?: District;
-  districtSlug?: string;
-  Category?: Category;
-  categorySlug?: string;
+  users_comment_destinations?: UsersCommentDestinations[];
+  users_like_destinations?: UsersLikeDestinations[];
+  users_save_destinations?: UsersSaveDestinations[];
+  users_view_destinations?: UsersViewDestinations[];
 }
 
 export interface Culture {
@@ -91,19 +127,25 @@ export interface Culture {
   description: string;
   body: string;
   cover: string;
-  address?: string;
+  address?: string | null;
+  districtSlug?: string | null;
+  District?: District | null;
+  Story?: Story[];
+  Source?: Source[];
+  images?: Image[];
   _count: {
-    users_comment_cultures: number;
-    users_like_cultures: number;
-    users_save_cultures: number;
-    users_view_cultures: number;
+    Source: number
+    Story: number
+    Images: number
+    users_comment_cultures: number
+    users_like_cultures: number
+    users_save_cultures: number
+    users_view_cultures: number
   };
-  users_comment_cultures: users_comment_cultures[];
-  users_like_cultures: users_like_cultures[];
-  users_save_cultures: users_save_cultures[];
-  users_view_cultures: users_view_cultures[];
-  districtSlug?: string;
-  District?: District;
+  users_comment_cultures?: UsersCommentCultures[];
+  users_like_cultures?: UsersLikeCultures[];
+  users_save_cultures?: UsersSaveCultures[];
+  users_view_cultures?: UsersViewCultures[];
 }
 
 export interface Category {
@@ -112,8 +154,8 @@ export interface Category {
   updatedAt: Date;
   slug: string;
   name: string;
-  description?: string;
-  destination: Destination[];
+  description?: string | null;
+  destination?: Destination[];
 }
 
 export interface District {
@@ -122,15 +164,48 @@ export interface District {
   updatedAt: Date;
   name: string;
   slug: string;
-  logo?: string;
-  cover?: string;
-  description?: string;
-  body?: string;
-  destinations: Destination[];
-  cultures: Culture[];
+  logo?: string | null;
+  cover?: string | null;
+  description?: string | null;
+  body?: string | null;
+  destinations?: Destination[];
+  cultures?: Culture[];
+  Story?: Story[];
 }
 
-export interface users_comment_stories {
+export interface Image {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  url: string;
+  cultureSlug?: string | null;
+  destinationSlug?: string | null;
+  storySlug?: string | null;
+  Culture?: Culture | null;
+  Destination?: Destination | null;
+  Story?: Story | null;
+}
+
+export interface Source {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  year?: string | null;
+  publisher?: string | null;
+  doi?: string | null;
+  weblink?: string | null;
+  accessed?: Date | null;
+  storySlug?: string | null;
+  destinationSlug?: string | null;
+  cultureSlug?: string | null;
+  story?: Story | null;
+  destination?: Destination | null;
+  culture?: Culture | null;
+}
+
+// Pivot Models
+export interface UsersCommentStories {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -141,7 +216,7 @@ export interface users_comment_stories {
   story: Story;
 }
 
-export interface users_like_stories {
+export interface UsersLikeStories {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -151,7 +226,7 @@ export interface users_like_stories {
   story: Story;
 }
 
-export interface users_save_stories {
+export interface UsersSaveStories {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -161,7 +236,7 @@ export interface users_save_stories {
   story: Story;
 }
 
-export interface users_view_stories {
+export interface UsersViewStories {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -171,17 +246,7 @@ export interface users_view_stories {
   story: Story;
 }
 
-export interface users_like_destinations {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  username: string;
-  destinationSlug: string;
-  user: User;
-  destination: Destination;
-}
-
-export interface users_comment_destinations {
+export interface UsersCommentDestinations {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -192,7 +257,7 @@ export interface users_comment_destinations {
   destination: Destination;
 }
 
-export interface users_save_destinations {
+export interface UsersLikeDestinations {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -202,7 +267,7 @@ export interface users_save_destinations {
   destination: Destination;
 }
 
-export interface users_view_destinations {
+export interface UsersSaveDestinations {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -212,7 +277,17 @@ export interface users_view_destinations {
   destination: Destination;
 }
 
-export interface users_comment_cultures {
+export interface UsersViewDestinations {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  username: string;
+  destinationSlug: string;
+  user: User;
+  destination: Destination;
+}
+
+export interface UsersCommentCultures {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -223,7 +298,7 @@ export interface users_comment_cultures {
   culture: Culture;
 }
 
-export interface users_like_cultures {
+export interface UsersLikeCultures {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -233,7 +308,7 @@ export interface users_like_cultures {
   culture: Culture;
 }
 
-export interface users_save_cultures {
+export interface UsersSaveCultures {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -243,7 +318,7 @@ export interface users_save_cultures {
   culture: Culture;
 }
 
-export interface users_view_cultures {
+export interface UsersViewCultures {
   id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -251,14 +326,4 @@ export interface users_view_cultures {
   cultureSlug: string;
   user: User;
   culture: Culture;
-}
-
-export enum Gender {
-  MALE = "MALE",
-  FEMALE = "FEMALE",
-}
-
-enum Role {
-  ADMIN = "ADMIN",
-  BASIC = "BASIC",
 }
