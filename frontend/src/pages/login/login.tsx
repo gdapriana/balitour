@@ -5,11 +5,13 @@ import { AuthContext } from "@/provider/auth.tsx";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button.tsx";
 import { LoadingContext } from "@/provider/loading.tsx";
+import Errors from "@/pages/login/components/errors.tsx";
 
 const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setToken, authenticated } = useContext(AuthContext);
+  const [errors, setErrors] = useState<string | string[]>();
   const { setLoading } = useContext(LoadingContext);
   const navigate = useNavigate();
 
@@ -18,7 +20,6 @@ const Login = () => {
   }
 
   const handleLogin = async () => {
-    setLoading(true);
     try {
       const response = await fetch(`${import.meta.env.VITE_PUBLIC_API}/login`, {
         method: "POST",
@@ -33,6 +34,8 @@ const Login = () => {
         setToken(data.data.token);
         setLoading(false);
       } else {
+        const error = await response.json();
+        setErrors(error.errors);
         console.error("Login failed");
       }
     } catch (error) {
@@ -59,6 +62,7 @@ const Login = () => {
         </p>
         <div className="w-full flex flex-col justify-start items-stretch gap-4 max-w-sm mt-10">
           <LoginForm setPassword={setPassword} setUsername={setUsername} />
+          {errors && <Errors errors={errors} />}
           <Button onClick={handleLogin}>Login</Button>
         </div>
         <p className="mt-4 text-muted-foreground">
