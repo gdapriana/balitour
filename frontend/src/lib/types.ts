@@ -141,7 +141,7 @@ export interface Culture {
   _count: {
     Source: number
     Story: number
-    Image: number
+    Images: number
     users_comment_cultures: number
     users_like_cultures: number
     users_save_cultures: number

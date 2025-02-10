@@ -26,7 +26,12 @@ class StoryService {
         },
         users_like_stories: true,
         users_save_stories: true,
-        users_view_stories: true
+        users_view_stories: true,
+        Source: true,
+        Culture: true,
+        Image: true,
+        Destination: true,
+        District: true
       }});
     if (!story) throw new ResponseError(404, "story not found");
     return story;

@@ -13,7 +13,7 @@ const Header = ({ story }: { story: Story | undefined }) => {
       <h1 className="font-bold md:text-xl lg:text-2xl">{story?.name}</h1>
       <p className="text-muted-foreground">Uploaded {moment(story?.createdAt).fromNow()}</p>
       <div className="flex justify-start my-4 items-center gap-2">
-        <UserBtn isOpen={false} className={{ root: "border" }} avatarOnly={false} username={story?.User?.username} />
+        <UserBtn isOpen={false} profile={story?.User?.profilePicture} className={{ root: "border" }} avatarOnly={false} username={story?.User?.username} />
       </div>
       <p className="">{story?.description}</p>
     </m.div>
