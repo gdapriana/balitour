@@ -4,11 +4,11 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from "@/components/ui/dialog.tsx";
-import {Button} from "@/components/ui/button.tsx";
-import {Settings} from "lucide-react";
-import {User} from "@/lib/types.ts";
+import { Button } from "@/components/ui/button.tsx";
+import { Settings } from "lucide-react";
+import { User } from "@/lib/types.ts";
 import EditProfileForm from "@/pages/profile/components/edit-profile-form.tsx";
 
 const EditProfileDialog = ({ user }: { user: User | null }) => {
@@ -26,9 +26,7 @@ const EditProfileDialog = ({ user }: { user: User | null }) => {
           <DialogDescription>Make change to your profile to make it more interactive</DialogDescription>
         </DialogHeader>
         <div className="flex w-full flex-col justify-start items-stretch">
-          <EditProfileForm
-            user={user}
-          />
+          <EditProfileForm user={user} />
         </div>
       </DialogContent>
     </Dialog>

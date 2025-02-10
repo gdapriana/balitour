@@ -1,8 +1,8 @@
-import {Category} from "@/lib/types.ts";
-import {Button} from "@/components/ui/button.tsx";
-import {Link} from "react-router-dom";
+import { Category } from "@/lib/types.ts";
+import { Button } from "@/components/ui/button.tsx";
+import { Link } from "react-router-dom";
 
-const Categories = ({categories}: {categories: Category[] | undefined}) => {
+const Categories = ({ categories }: { categories: Category[] | undefined }) => {
   return (
     <div className="flex flex-col gap-4 justify-start items-stretch">
       <h1 className="font-bold text-lg">Popular Categories</h1>
@@ -12,7 +12,7 @@ const Categories = ({categories}: {categories: Category[] | undefined}) => {
             <Button size="sm" variant="outline" className="rounded-full" asChild key={index}>
               <Link to={`/destinations?cat=${category.slug}`}>{category.name}</Link>
             </Button>
-          )
+          );
         })}
       </div>
     </div>

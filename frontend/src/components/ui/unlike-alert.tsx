@@ -1,15 +1,25 @@
 import {
-  AlertDialog, AlertDialogAction, AlertDialogCancel,
-  AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog.tsx";
-import {useNavigate} from "react-router-dom";
-import {Button} from "@/components/ui/button.tsx";
-import {Heart} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button.tsx";
+import { Heart } from "lucide-react";
 
-const UnlikeAlert = ({object, slug, itemName, token, likedCount}: {
+const UnlikeAlert = ({
+  object,
+  slug,
+  itemName,
+  token,
+  likedCount,
+}: {
   object: "destinations" | "cultures" | "stories";
   slug: string | undefined;
   itemName: string | undefined;
@@ -25,23 +35,25 @@ const UnlikeAlert = ({object, slug, itemName, token, likedCount}: {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: token
+          Authorization: token,
         },
       });
       if (response.ok) {
-        navigate(0)
+        navigate(0);
       } else {
         console.error("unlike failed");
       }
     } catch (error) {
       console.error(`An error occurred during unlike ${itemName}`, error);
     }
-
-  }
+  };
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="rounded-full"><Heart fill="red" color="red"  />{likedCount} <span className="hidden md:inline">Users liked</span></Button>
+        <Button className="rounded-full">
+          <Heart fill="red" color="red" />
+          {likedCount} <span className="hidden md:inline">Users liked</span>
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -50,10 +62,14 @@ const UnlikeAlert = ({object, slug, itemName, token, likedCount}: {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel asChild>
-            <Button className="rounded-full" variant="outline">Cancel</Button>
+            <Button className="rounded-full" variant="outline">
+              Cancel
+            </Button>
           </AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button className="rounded-full" onClick={submitHandle}>Yes</Button>
+            <Button className="rounded-full" onClick={submitHandle}>
+              Yes
+            </Button>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

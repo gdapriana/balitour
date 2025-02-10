@@ -1,21 +1,25 @@
 import {
-  AlertDialog, AlertDialogAction, AlertDialogCancel,
-  AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog.tsx";
-import {Button} from "@/components/ui/button.tsx";
-import {LogOut} from "lucide-react";
-import {useNavigate} from "react-router-dom";
+import { Button } from "@/components/ui/button.tsx";
+import { LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const LogoutAlert = () => {
   const navigate = useNavigate();
 
   const submitHandle = () => {
     localStorage.removeItem("token");
-    navigate(0)
-  }
+    navigate(0);
+  };
 
   return (
     <AlertDialog>
@@ -32,10 +36,14 @@ const LogoutAlert = () => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel asChild>
-            <Button className="rounded-full" variant="outline">Cancel</Button>
+            <Button className="rounded-full" variant="outline">
+              Cancel
+            </Button>
           </AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button variant="destructive" className="rounded-full" onClick={submitHandle}>Yes</Button>
+            <Button variant="destructive" className="rounded-full" onClick={submitHandle}>
+              Yes
+            </Button>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

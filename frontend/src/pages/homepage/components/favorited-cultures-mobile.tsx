@@ -1,10 +1,10 @@
-import {Culture} from "@/lib/types.ts";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.css';
+import { Culture } from "@/lib/types.ts";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
 import CultureCard from "@/components/ui/cultures-card.tsx";
-import {useRef} from "react";
-import {Button} from "@/components/ui/button.tsx";
-import {ArrowLeft, ArrowRight} from "lucide-react";
+import { useRef } from "react";
+import { Button } from "@/components/ui/button.tsx";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const FavoritedCulturesMobile = ({ cultures }: { cultures: Culture[] }) => {
   const swiperRef = useRef() as any;
@@ -20,16 +20,18 @@ const FavoritedCulturesMobile = ({ cultures }: { cultures: Culture[] }) => {
         {cultures.map((culture: Culture, index: number) => {
           return (
             <SwiperSlide key={index}>
-              <CultureCard culture={culture}/>
+              <CultureCard culture={culture} />
             </SwiperSlide>
-          )
+          );
         })}
       </Swiper>
       <div className="flex mt-4 justify-center items-center gap-2">
-        <Button onClick={() => swiperRef?.current?.slidePrev()} size="icon" className="rounded-full"
-                variant="ghost"><ArrowLeft/></Button>
-        <Button onClick={() => swiperRef?.current?.slideNext()} size="icon" className="rounded-full"
-                variant="ghost"><ArrowRight/></Button>
+        <Button onClick={() => swiperRef?.current?.slidePrev()} size="icon" className="rounded-full" variant="ghost">
+          <ArrowLeft />
+        </Button>
+        <Button onClick={() => swiperRef?.current?.slideNext()} size="icon" className="rounded-full" variant="ghost">
+          <ArrowRight />
+        </Button>
       </div>
     </div>
   );

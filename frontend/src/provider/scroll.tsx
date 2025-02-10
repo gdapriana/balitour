@@ -11,7 +11,7 @@ const ScrollContext = createContext<ScrollContextType>({
   scrolled: true,
   setScrolled: () => {},
   value: 0,
-  setValue: () => {}
+  setValue: () => {},
 });
 
 const ScrollProvider = ({ children }: { children: React.ReactNode }) => {

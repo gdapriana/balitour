@@ -1,26 +1,23 @@
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import {Dispatch, SetStateAction} from "react";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Dispatch, SetStateAction } from "react";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   password: z.string().min(5).max(100),
   name: z.string().min(2).max(100),
-})
+});
 
-const RegisterForm = ({ setUsername, setPassword, setName } : {
+const RegisterForm = ({
+  setUsername,
+  setPassword,
+  setName,
+}: {
   setUsername: Dispatch<SetStateAction<string>>;
   setPassword: Dispatch<SetStateAction<string>>;
   setName: Dispatch<SetStateAction<string>>;
@@ -32,11 +29,11 @@ const RegisterForm = ({ setUsername, setPassword, setName } : {
       password: "",
       name: "",
     },
-  })
+  });
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setUsername(values.username)
-    setPassword(values.password)
-    setName(values.name)
+    setUsername(values.username);
+    setPassword(values.password);
+    setName(values.name);
   }
   return (
     <Form {...form}>
@@ -80,7 +77,9 @@ const RegisterForm = ({ setUsername, setPassword, setName } : {
             </FormItem>
           )}
         />
-        <Button className="rounded-full mt-4" type="submit">Login</Button>
+        <Button className="rounded-full mt-4" type="submit">
+          Login
+        </Button>
       </form>
     </Form>
   );
