@@ -76,7 +76,7 @@ const Profile = () => {
       <div className="w-full p-4 flex-col flex my-4 justify-center items-center">
         <div className="grid relative w-full gap-2 max-w-5xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {activeSection === "st" &&
-            user?.stories.length !== 0 &&
+            user?.stories?.length !== 0 &&
             user?.stories?.map((story: Story, index: number) => {
               return <StoryCard story={story} key={index} />;
             })}
@@ -111,7 +111,7 @@ const Profile = () => {
               return <StoryCard story={story.story} key={index} />;
             })}
         </div>
-        {activeSection === "st" && user?.stories.length === 0 && (
+        {activeSection === "st" && user?.stories?.length === 0 && (
           <div className="w-full h-[400px] flex justify-center items-center flex-col">
             <Brand headline="Empty" direction="col" />
           </div>

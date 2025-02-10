@@ -1,3 +1,8 @@
+export interface Navigation {
+  title: string;
+  path: string;
+}
+
 export enum Gender {
   MALE = "MALE",
   FEMALE = "FEMALE",
@@ -14,12 +19,12 @@ export interface User {
   updatedAt: Date;
   username: string;
   password: string;
-  name?: string | null;
-  email?: string | null;
-  profilePicture?: string | null;
-  phoneNumber?: string | null;
-  gender?: Gender | null;
-  token?: string | null;
+  name?: string;
+  email?: string;
+  profilePicture?: string;
+  phoneNumber?: string;
+  gender?: Gender;
+  token?: string;
   role: Role;
   stories?: Story[];
   _count: {
@@ -63,12 +68,12 @@ export interface Story {
   readingTime: number;
   username: string;
   User?: User;
-  relatedDestinationSlug?: string | null;
-  Destination?: Destination | null;
-  relatedCultureSlug?: string | null;
-  Culture?: Culture | null;
-  relatedDistrictSlug?: string | null;
-  District?: District | null;
+  relatedDestinationSlug?: string;
+  Destination?: Destination;
+  relatedCultureSlug?: string;
+  Culture?: Culture;
+  relatedDistrictSlug?: string;
+  District?: District;
   Source?: Source[];
   Image?: Image[];
   _count: {
@@ -94,12 +99,12 @@ export interface Destination {
   description: string;
   cover: string;
   address: string;
-  price?: number | null;
+  price?: number;
   map: string;
-  districtSlug?: string | null;
-  categorySlug?: string | null;
-  District?: District | null;
-  Category?: Category | null;
+  districtSlug?: string;
+  categorySlug?: string;
+  District?: District;
+  Category?: Category;
   Story?: Story[];
   Source?: Source[];
   Image?: Image[];
@@ -108,9 +113,9 @@ export interface Destination {
     Story: number
     Images: number
     users_comment_destinations: number
-    users_like_destinaions: number
-    users_save_destinaions: number
-    users_view_destinaions: number
+    users_like_destinations: number
+    users_save_destinations: number
+    users_view_destinations: number
   };
   users_comment_destinations?: UsersCommentDestinations[];
   users_like_destinations?: UsersLikeDestinations[];
@@ -127,9 +132,9 @@ export interface Culture {
   description: string;
   body: string;
   cover: string;
-  address?: string | null;
-  districtSlug?: string | null;
-  District?: District | null;
+  address?: string;
+  districtSlug?: string;
+  District?: District;
   Story?: Story[];
   Source?: Source[];
   images?: Image[];
@@ -154,7 +159,7 @@ export interface Category {
   updatedAt: Date;
   slug: string;
   name: string;
-  description?: string | null;
+  description?: string;
   destination?: Destination[];
 }
 
@@ -164,9 +169,9 @@ export interface District {
   updatedAt: Date;
   name: string;
   slug: string;
-  logo?: string | null;
-  cover?: string | null;
-  description?: string | null;
+  logo?: string;
+  cover?: string;
+  description?: string;
   body?: string | null;
   destinations?: Destination[];
   cultures?: Culture[];
@@ -178,11 +183,11 @@ export interface Image {
   createdAt: Date;
   updatedAt: Date;
   url: string;
-  cultureSlug?: string | null;
-  destinationSlug?: string | null;
-  storySlug?: string | null;
-  Culture?: Culture | null;
-  Destination?: Destination | null;
+  cultureSlug?: string;
+  destinationSlug?: string;
+  storySlug?: string;
+  Culture?: Culture;
+  Destination?: Destination;
   Story?: Story | null;
 }
 
@@ -191,17 +196,17 @@ export interface Source {
   createdAt: Date;
   updatedAt: Date;
   name: string;
-  year?: string | null;
-  publisher?: string | null;
-  doi?: string | null;
-  weblink?: string | null;
-  accessed?: Date | null;
-  storySlug?: string | null;
-  destinationSlug?: string | null;
-  cultureSlug?: string | null;
-  story?: Story | null;
-  destination?: Destination | null;
-  culture?: Culture | null;
+  year?: string;
+  publisher?: string;
+  doi?: string;
+  weblink?: string;
+  accessed?: Date;
+  storySlug?: string;
+  destinationSlug?: string;
+  cultureSlug?: string;
+  story?: Story;
+  destination?: Destination;
+  culture?: Culture;
 }
 
 // Pivot Models

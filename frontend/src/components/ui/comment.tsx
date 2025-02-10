@@ -1,4 +1,4 @@
-import { users_comment_cultures, users_comment_destinations, users_comment_stories } from "@/lib/types.ts";
+import { UsersCommentCultures, UsersCommentDestinations, UsersCommentStories } from "@/lib/types.ts";
 import { MessageCircle, Plus, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import Brand from "@/components/ui/brand.tsx";
@@ -16,7 +16,7 @@ const Comment = ({
   slug,
   object,
 }: {
-  comments: users_comment_destinations[] | users_comment_cultures[] | users_comment_stories[] | undefined;
+  comments: UsersCommentDestinations[] | UsersCommentCultures[] | UsersCommentStories[] | undefined;
   itemName: string;
   slug: string;
   object: "destinations" | "cultures" | "stories";
@@ -47,7 +47,7 @@ const Comment = ({
           </div>
         )}
         {comments?.map(
-          (comment: users_comment_destinations | users_comment_cultures | users_comment_stories, index: number) => {
+          (comment: UsersCommentDestinations | UsersCommentCultures | UsersCommentStories, index: number) => {
             return (
               <article key={index} className="flex gap-6 border-b py-6 flex-col justify-start items-stretch">
                 <div className="flex justify-start items-center">
