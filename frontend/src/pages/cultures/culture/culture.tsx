@@ -61,6 +61,7 @@ const Culture = () => {
     return <NotFound />;
   }
 
+  console.log(culture)
   return (
     <div>
       <Hero cover={culture.cover} />
@@ -70,7 +71,7 @@ const Culture = () => {
             <Header culture={culture} />
             <Action culture={culture} />
             <Body text={culture.body} />
-            {culture?._count.Image !== 0 && <AdditionalImages itemName={culture.name} images={culture.images} />}
+            {culture?._count.Images !== 0 && <AdditionalImages itemName={culture.name} images={culture.images} />}
             <Comment
               slug={culture.slug}
               object="cultures"

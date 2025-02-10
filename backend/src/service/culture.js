@@ -27,7 +27,7 @@ class CultureService {
         users_like_cultures: true,
         users_save_cultures: true,
         users_view_cultures: true,
-        images: true,
+        Images: true,
         Source: true,
         Story: true,
       },
