@@ -45,7 +45,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         setLoading(false);
       }
     })();
-  }, [token]);
+  }, [token, setLoading]);
 
   useEffect(() => {
     const handleStorageChange = () => {

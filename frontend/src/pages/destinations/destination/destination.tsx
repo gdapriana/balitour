@@ -10,6 +10,7 @@ import Map from "@/pages/destinations/destination/components/map.tsx";
 import Categories from "@/pages/destinations/destination/components/categories.tsx";
 import FavoritedItems from "@/components/ui/favorited-item.tsx";
 import Comment from "@/components/ui/comment.tsx";
+import AdditionalImages from "@/components/ui/additional-images.tsx";
 
 const Destination = () => {
   const { slug } = useParams();
@@ -66,6 +67,7 @@ const Destination = () => {
             <Header destination={destination} />
             <Action destination={destination} />
             <Map coordinates={destination.map} />
+            {destination?._count.Image !== 0 && <AdditionalImages itemName={destination.name} images={destination.Image} />}
             <Comment
               slug={destination.slug}
               object="destinations"

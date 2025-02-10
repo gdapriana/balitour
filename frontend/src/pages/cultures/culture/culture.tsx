@@ -10,6 +10,7 @@ import Header from "@/pages/cultures/culture/components/header.tsx";
 import Action from "@/pages/cultures/culture/components/action.tsx";
 import Comment from "@/components/ui/comment.tsx";
 import Body from "@/components/ui/body.tsx";
+import AdditionalImages from "@/components/ui/additional-images.tsx";
 
 const Culture = () => {
   const { slug } = useParams();
@@ -60,8 +61,6 @@ const Culture = () => {
     return <NotFound />;
   }
 
-  console.log(culture)
-
   return (
     <div>
       <Hero cover={culture.cover} />
@@ -71,6 +70,7 @@ const Culture = () => {
             <Header culture={culture} />
             <Action culture={culture} />
             <Body text={culture.body} />
+            {culture?._count.Image !== 0 && <AdditionalImages itemName={culture.name} images={culture.images} />}
             <Comment
               slug={culture.slug}
               object="cultures"

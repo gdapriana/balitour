@@ -10,6 +10,7 @@ import FavoritedItems from "@/components/ui/favorited-item.tsx";
 import Categories from "@/pages/destinations/destination/components/categories.tsx";
 import Header from "@/pages/stories/story/components/header.tsx";
 import Action from "@/pages/stories/story/components/action.tsx";
+import AdditionalImages from "@/components/ui/additional-images.tsx";
 
 const Story = () => {
   const { slug } = useParams();
@@ -71,6 +72,7 @@ const Story = () => {
             <Header story={story} />
             <Action story={story} />
             <Body text={story.body} />
+            {story?._count.Image !== 0 && <AdditionalImages itemName={story.name} images={story.Image} />}
             <Comment slug={story.slug} object="stories" itemName={story.name} comments={story.users_comment_stories} />
           </div>
           <div className="hidden flex-col gap-8 justify-start items-stretch lg:flex w-1/3">

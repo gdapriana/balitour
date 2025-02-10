@@ -78,7 +78,7 @@ export interface Story {
   Image?: Image[];
   _count: {
     Source: number
-    Images: number
+    Image: number
     users_comment_stories: number
     users_likestories: number
     users_savestories: number
@@ -111,7 +111,7 @@ export interface Destination {
   _count: {
     Source: number
     Story: number
-    Images: number
+    Image: number
     users_comment_destinations: number
     users_like_destinations: number
     users_save_destinations: number
@@ -141,7 +141,7 @@ export interface Culture {
   _count: {
     Source: number
     Story: number
-    Images: number
+    Image: number
     users_comment_cultures: number
     users_like_cultures: number
     users_save_cultures: number

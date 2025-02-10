@@ -26,7 +26,10 @@ class DestinationService {
         users_view_destinations: true,
         users_comment_destinations:{
           include: {user: {select: {username: true, profilePicture: true}}}
-        }
+        },
+        Image: true,
+        Source: true,
+        Story: true
       },
     });
     if (!destination) throw new ResponseError(404, "destination not found");
