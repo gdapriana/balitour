@@ -69,11 +69,11 @@ export interface Story {
   username: string;
   User?: User;
   relatedDestinationSlug?: string;
-  Destination?: Destination;
+  relatedDestination?: Destination;
   relatedCultureSlug?: string;
-  Culture?: Culture;
+  relatedCulture?: Culture;
   relatedDistrictSlug?: string;
-  District?: District;
+  relatedDistrict?: District;
   Source?: Source[];
   Image?: Image[];
   _count: {

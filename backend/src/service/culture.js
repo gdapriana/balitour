@@ -22,28 +22,30 @@ class CultureService {
         _count: true,
         District: true,
         users_comment_cultures: {
-          include: {user: {select: {username: true, profilePicture: true}}}
+          include: {
+            user: { select: { username: true, profilePicture: true } },
+          },
         },
         users_like_cultures: true,
         users_save_cultures: true,
         users_view_cultures: true,
-        Images: true,
         Source: true,
         Story: true,
+        AdditionalImages: true,
       },
     });
     if (!culture) throw new ResponseError(404, "culture not found");
     return culture;
   }
   static async gets(req) {
-    let dis = []
+    let dis = [];
     const queries = validation(CultureValidation.GETS, req);
     if (queries.district) {
       if (typeof queries.district === "string") {
-        dis.push({districtSlug: queries.district});
+        dis.push({ districtSlug: queries.district });
       } else {
         for (const district of queries.district) {
-          dis.push({districtSlug: district});
+          dis.push({ districtSlug: district });
         }
       }
     }
@@ -51,11 +53,13 @@ class CultureService {
       where: {
         AND: [
           { name: { contains: queries.name, mode: "insensitive" } },
-          { description: { contains: queries.description, mode: "insensitive" } },
+          {
+            description: { contains: queries.description, mode: "insensitive" },
+          },
           { address: { contains: queries.address, mode: "insensitive" } },
           {
-            OR: dis
-          }
+            OR: dis,
+          },
         ],
       },
       include: {
@@ -71,7 +75,8 @@ class CultureService {
       where: { slug },
     });
     if (!culture) throw new ResponseError(404, "culture not found");
-    if (request.name) request.slug = `${slugify(request.name, { lower: true })}-${new Date().getTime()}`;
+    if (request.name)
+      request.slug = `${slugify(request.name, { lower: true })}-${new Date().getTime()}`;
     return db.destination.update({
       where: { slug },
       data: request,
@@ -226,41 +231,44 @@ class CultureService {
   static async userSavedCulture(slug, username) {
     const culture = await db.culture.findUnique({
       where: { slug },
-    })
+    });
     if (!culture) throw new ResponseError(404, "culture not found");
     const savedCulture = await db.users_save_cultures.findFirst({
       where: {
-        username, cultureSlug: slug
-      }
-    })
-    if(!savedCulture) return false;
-    return true
+        username,
+        cultureSlug: slug,
+      },
+    });
+    if (!savedCulture) return false;
+    return true;
   }
   static async userLikedCulture(slug, username) {
     const culture = await db.culture.findUnique({
       where: { slug },
-    })
+    });
     if (!culture) throw new ResponseError(404, "culture not found");
     const likedCulture = await db.users_like_cultures.findFirst({
       where: {
-        username, cultureSlug: slug
-      }
-    })
-    if(!likedCulture) return false;
-    return true
+        username,
+        cultureSlug: slug,
+      },
+    });
+    if (!likedCulture) return false;
+    return true;
   }
   static async userViewedCulture(slug, username) {
     const culture = await db.culture.findUnique({
       where: { slug },
-    })
+    });
     if (!culture) throw new ResponseError(404, "culture not found");
     const viewedCulture = await db.users_view_cultures.findFirst({
       where: {
-        username, cultureSlug: slug
-      }
-    })
-    if(!viewedCulture) return false;
-    return true
+        username,
+        cultureSlug: slug,
+      },
+    });
+    if (!viewedCulture) return false;
+    return true;
   }
 }
 

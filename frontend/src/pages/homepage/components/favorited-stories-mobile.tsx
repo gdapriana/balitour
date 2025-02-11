@@ -1,16 +1,24 @@
 import { Story } from "@/lib/types.ts";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.tsx";
 import { cn } from "@/lib/utils.ts";
 import { motion as m } from "motion/react";
 import StoryCard from "@/components/ui/story-card.tsx";
 
-const FavoritedStoriesMobile = ({ stories }: { stories: Story[] }) => {
+const FavoritedStoriesMobile = ({ stories }: { stories: Story[] | undefined }) => {
   const [activeStory, setActiveStory] = useState<number>(0);
+  const [activeStorySlide, setActiveStorySlide] = useState<Story>();
+
+  useEffect(() => {
+    if (stories) {
+      setActiveStorySlide(stories[activeStory])
+    }
+  }, [activeStory, stories]);
+
   return (
     <div className="w-full md:hidden flex flex-col justify-start items-stretch gap-4">
       <div className="flex gap-4 items-center justify-center">
-        {stories.map((story: Story, index: number) => {
+        {stories?.map((story: Story, index: number) => {
           return (
             <m.div
               onClick={() => setActiveStory(index)}
@@ -21,7 +29,7 @@ const FavoritedStoriesMobile = ({ stories }: { stories: Story[] }) => {
               )}
             >
               <Avatar>
-                <AvatarImage src={story.User?.profilePicture} />
+                <AvatarImage className="object-cover bg" src={story.User?.profilePicture} />
                 <AvatarFallback>{story.username.charAt(0)}</AvatarFallback>
               </Avatar>
               {activeStory === index && (
@@ -38,7 +46,7 @@ const FavoritedStoriesMobile = ({ stories }: { stories: Story[] }) => {
         })}
       </div>
       <m.div className="w-full justify-center items-center">
-        <StoryCard story={stories[activeStory]} />
+        <StoryCard story={activeStorySlide} />
       </m.div>
     </div>
   );

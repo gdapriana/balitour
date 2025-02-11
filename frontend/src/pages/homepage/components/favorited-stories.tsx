@@ -8,7 +8,7 @@ import { ArrowRight } from "lucide-react";
 import FavoritedStoriesDesktop from "@/pages/homepage/components/favorited-stories-desktop.tsx";
 
 const FavoritedStories = () => {
-  const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState();
   const { setLoading } = useContext(LoadingContext);
 
   useEffect(() => {

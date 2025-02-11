@@ -12,6 +12,7 @@ import Header from "@/pages/stories/story/components/header.tsx";
 import Action from "@/pages/stories/story/components/action.tsx";
 import AdditionalImages from "@/components/ui/additional-images.tsx";
 import Source from "@/components/ui/source.tsx";
+import Related from "@/components/ui/related";
 
 const Story = () => {
   const { slug } = useParams();
@@ -64,8 +65,6 @@ const Story = () => {
     return <NotFound />;
   }
 
-  console.log(story)
-
   return (
     <div>
       <Hero cover={story.cover} />
@@ -75,12 +74,27 @@ const Story = () => {
             <Header story={story} />
             <Action story={story} />
             <Body text={story.body} />
-            {story?._count.Image !== 0 && <AdditionalImages itemName={story.name} images={story.Image} />}
+            {story?._count.Image !== 0 && (
+              <AdditionalImages itemName={story.name} images={story.Image} />
+            )}
             {story?._count.Source !== 0 && <Source sources={story.Source} />}
-            <Comment slug={story.slug} object="stories" itemName={story.name} comments={story.users_comment_stories} />
+            <Related
+              culture={story?.relatedCulture}
+              district={story?.relatedDistrict}
+              destination={story?.relatedDestination}
+            />
+            <Comment
+              slug={story.slug}
+              object="stories"
+              itemName={story.name}
+              comments={story.users_comment_stories}
+            />
           </div>
           <div className="hidden flex-col gap-8 justify-start items-stretch lg:flex w-1/3">
-            <FavoritedItems items={favoritedStories?.filter((story) => story.slug !== slug)} redirect={"Stories"} />
+            <FavoritedItems
+              items={favoritedStories?.filter((story) => story.slug !== slug)}
+              redirect={"Stories"}
+            />
             <Categories categories={categories} />
           </div>
         </div>

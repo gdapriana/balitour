@@ -28,10 +28,10 @@ class StoryService {
         users_save_stories: true,
         users_view_stories: true,
         Source: true,
-        Culture: true,
         Image: true,
-        Destination: true,
-        District: true
+        relatedDestination:true,
+        relatedCulture: true,
+        relatedDistrict: true,
       }});
     if (!story) throw new ResponseError(404, "story not found");
     return story;

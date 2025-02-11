@@ -71,8 +71,15 @@ const Culture = () => {
             <Header culture={culture} />
             <Action culture={culture} />
             <Body text={culture.body} />
-            {culture?._count.Images !== 0 && <AdditionalImages itemName={culture.name} images={culture.images} />}
-            {culture?._count.Source !== 0 && <Source sources={culture.Source} />}
+            {culture?._count.Images !== 0 && (
+              <AdditionalImages
+                itemName={culture.name}
+                images={culture.images}
+              />
+            )}
+            {culture?._count.Source !== 0 && (
+              <Source sources={culture.Source} />
+            )}
             <Comment
               slug={culture.slug}
               object="cultures"
@@ -82,7 +89,9 @@ const Culture = () => {
           </div>
           <div className="hidden flex-col gap-8 justify-start items-stretch lg:flex w-1/3">
             <FavoritedItems
-              items={favoritedCultures?.filter((culture) => culture.slug !== slug)}
+              items={favoritedCultures?.filter(
+                (culture) => culture.slug !== slug,
+              )}
               redirect={"Cultures"}
             />
             <Categories categories={categories} />

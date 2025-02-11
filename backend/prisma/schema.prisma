@@ -60,11 +60,11 @@ model Story {
   username               String
   User                   User?                   @relation(fields: [username], references: [username])
   relatedDestinationSlug String?
-  Destination            Destination?            @relation(fields: [relatedDestinationSlug], references: [slug])
+  relatedDestination     Destination?            @relation(fields: [relatedDestinationSlug], references: [slug])
   relatedCultureSlug     String?
-  Culture                Culture?                @relation(fields: [relatedCultureSlug], references: [slug])
+  relatedCulture         Culture?                @relation(fields: [relatedCultureSlug], references: [slug])
   relatedDistrictSlug    String?
-  District               District?               @relation(fields: [relatedDistrictSlug], references: [slug])
+  relatedDistrict        District?               @relation(fields: [relatedDistrictSlug], references: [slug])
   Source                 Source[]
   Image                  Image[]
 
