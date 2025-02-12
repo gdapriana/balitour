@@ -58,6 +58,8 @@ const Destination = () => {
     getData().then();
   }, [setLoading]);
 
+  console.log(destination)
+
   if (!destination) return <NotFound />;
   return (
     <div>

@@ -29,7 +29,7 @@ class DestinationService {
         },
         images: true,
         sources: true,
-        stories: true
+        relatedStories: true
       },
     });
     if (!destination) throw new ResponseError(404, "destination not found");

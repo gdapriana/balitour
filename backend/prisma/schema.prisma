@@ -90,7 +90,7 @@ model Destination {
   districtSlug               String?
   category                   Category?                    @relation(fields: [categorySlug], references: [slug], onDelete: Cascade)
   categorySlug               String?
-  stories                    Story[]
+  relatedStories             Story[]
   sources                    Source[]
   images                     Image[]
 
@@ -113,7 +113,7 @@ model Culture {
   users_view_cultures    users_view_cultures[]
   districtSlug           String?
   district               District?                @relation(fields: [districtSlug], references: [slug], onDelete: Cascade)
-  stories                Story[]
+  relatedStories         Story[]
   sources                Source[]
   images                 Image[]
 
@@ -133,18 +133,18 @@ model Category {
 }
 
 model District {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  name         String
-  slug         String        @unique
-  logo         String?
-  cover        String?
-  description  String?
-  body         String?
-  destinations Destination[]
-  cultures     Culture[]
-  stories      Story[]
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  name           String
+  slug           String        @unique
+  logo           String?
+  cover          String?
+  description    String?
+  body           String?
+  destinations   Destination[]
+  cultures       Culture[]
+  relatedStories Story[]
 
   @@map("districts")
 }

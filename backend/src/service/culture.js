@@ -29,7 +29,7 @@ class CultureService {
         users_save_cultures: true,
         users_view_cultures: true,
         sources: true,
-        stories: true,
+        relatedStories: true,
         images: true,
       },
     });
