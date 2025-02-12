@@ -165,15 +165,16 @@ model Image {
 }
 
 model Source {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  name      String
-  year      String?
-  publisher String?
-  doi       String?
-  weblink   String?
-  accessed  DateTime?
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  citationNum Int?      @default(0)
+  name        String
+  year        String?
+  publisher   String?
+  doi         String?
+  weblink     String?
+  accessed    DateTime?
 
   storySlug       String?
   destinationSlug String?

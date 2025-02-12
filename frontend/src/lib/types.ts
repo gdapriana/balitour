@@ -195,6 +195,7 @@ export interface Source {
   id: string;
   createdAt: Date;
   updatedAt: Date;
+  citationNum?: number;
   name: string;
   year?: string;
   publisher?: string;
