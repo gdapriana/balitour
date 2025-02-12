@@ -12,6 +12,7 @@ import Comment from "@/components/ui/comment.tsx";
 import Body from "@/components/ui/body.tsx";
 import AdditionalImages from "@/components/ui/additional-images.tsx";
 import Source from "@/components/ui/source.tsx";
+import RelatedItem from "@/components/ui/related-item.tsx";
 
 const Culture = () => {
   const { slug } = useParams();
@@ -71,15 +72,8 @@ const Culture = () => {
             <Header culture={culture} />
             <Action culture={culture} />
             <Body text={culture.body} />
-            {culture?._count.images !== 0 && (
-              <AdditionalImages
-                itemName={culture.name}
-                images={culture.images}
-              />
-            )}
-            {culture?._count.sources !== 0 && (
-              <Source sources={culture.sources} />
-            )}
+            {culture?._count.images !== 0 && <AdditionalImages itemName={culture.name} images={culture.images} />}
+            {culture?._count.sources !== 0 && <Source sources={culture.sources} />}
             <Comment
               slug={culture.slug}
               object="cultures"
@@ -89,11 +83,12 @@ const Culture = () => {
           </div>
           <div className="hidden flex-col gap-8 justify-start items-stretch lg:flex w-1/3">
             <FavoritedItems
-              items={favoritedCultures?.filter(
-                (culture) => culture.slug !== slug,
-              )}
+              items={favoritedCultures?.filter((culture) => culture.slug !== slug)}
               redirect={"Cultures"}
             />
+            {culture.relatedStories?.length !== 0 && (
+              <RelatedItem itemsName="cultures" items={culture.relatedStories} />
+            )}
             <Categories categories={categories} />
           </div>
         </div>

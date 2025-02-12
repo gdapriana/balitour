@@ -41,7 +41,7 @@ export interface User {
     users_view_cultures: number;
     users_view_destinations: number;
     users_view_stories: number;
-  }
+  };
   users_comment_stories?: UsersCommentStories[];
   users_like_stories?: UsersLikeStories[];
   users_save_stories?: UsersSaveStories[];
@@ -77,12 +77,12 @@ export interface Story {
   sources?: Source[];
   images?: Image[];
   _count: {
-    sources: number
-    images: number
-    users_comment_stories: number
-    users_like_stories: number
-    users_save_stories: number
-    users_view_stories: number
+    sources: number;
+    images: number;
+    users_comment_stories: number;
+    users_like_stories: number;
+    users_save_stories: number;
+    users_view_stories: number;
   };
   users_comment_stories?: UsersCommentStories[];
   users_like_stories?: UsersLikeStories[];
@@ -105,17 +105,17 @@ export interface Destination {
   categorySlug?: string;
   district?: District;
   category?: Category;
-  stories?: Story[];
+  relatedStories?: Story[];
   sources?: Source[];
   images?: Image[];
   _count: {
-    sources: number
-    stories: number
-    images: number
-    users_comment_destinations: number
-    users_like_destinations: number
-    users_save_destinations: number
-    users_view_destinations: number
+    sources: number;
+    relatedStories: number;
+    images: number;
+    users_comment_destinations: number;
+    users_like_destinations: number;
+    users_save_destinations: number;
+    users_view_destinations: number;
   };
   users_comment_destinations?: UsersCommentDestinations[];
   users_like_destinations?: UsersLikeDestinations[];
@@ -135,17 +135,17 @@ export interface Culture {
   address?: string;
   districtSlug?: string;
   district?: District;
-  stories?: Story[];
+  relatedStories?: Story[];
   sources?: Source[];
   images?: Image[];
   _count: {
-    sources: number
-    stories: number
-    images: number
-    users_comment_cultures: number
-    users_like_cultures: number
-    users_save_cultures: number
-    users_view_cultures: number
+    sources: number;
+    relatedStories: number;
+    images: number;
+    users_comment_cultures: number;
+    users_like_cultures: number;
+    users_save_cultures: number;
+    users_view_cultures: number;
   };
   users_comment_cultures?: UsersCommentCultures[];
   users_like_cultures?: UsersLikeCultures[];

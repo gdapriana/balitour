@@ -12,6 +12,7 @@ import FavoritedItems from "@/components/ui/favorited-item.tsx";
 import Comment from "@/components/ui/comment.tsx";
 import AdditionalImages from "@/components/ui/additional-images.tsx";
 import Source from "@/components/ui/source.tsx";
+import RelatedItem from "@/components/ui/related-item.tsx";
 
 const Destination = () => {
   const { slug } = useParams();
@@ -58,8 +59,6 @@ const Destination = () => {
     getData().then();
   }, [setLoading]);
 
-  console.log(destination)
-
   if (!destination) return <NotFound />;
   return (
     <div>
@@ -70,7 +69,9 @@ const Destination = () => {
             <Header destination={destination} />
             <Action destination={destination} />
             <Map coordinates={destination.map} />
-            {destination?._count.images !== 0 && <AdditionalImages itemName={destination.name} images={destination.images} />}
+            {destination?._count.images !== 0 && (
+              <AdditionalImages itemName={destination.name} images={destination.images} />
+            )}
             {destination?._count.sources !== 0 && <Source sources={destination.sources} />}
             <Comment
               slug={destination.slug}
@@ -84,6 +85,9 @@ const Destination = () => {
               items={favoritedDestinations?.filter((destination) => destination.slug !== slug)}
               redirect="Destinations"
             />
+            {destination.relatedStories?.length !== 0 && (
+              <RelatedItem itemsName="stories" items={destination.relatedStories} />
+            )}
             <Categories categories={categories} />
           </div>
         </div>
