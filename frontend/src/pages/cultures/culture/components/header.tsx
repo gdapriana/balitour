@@ -13,10 +13,10 @@ const Header = ({ culture }: { culture: Culture | undefined }) => {
       <h1 className="font-bold md:text-xl lg:text-2xl">{culture?.name}</h1>
       {culture?.address && <h3 className="text-muted-foreground">{culture?.address}</h3>}
       <div className="flex flex-wrap justify-start my-4 items-center gap-2">
-        {culture?.District ? (
+        {culture?.district? (
           <Button variant="outline" className="rounded-full">
             <Map />
-            {culture?.District?.name}
+            {culture?.district?.name}
           </Button>
         ) : (
           <Button variant="outline" className="rounded-full">

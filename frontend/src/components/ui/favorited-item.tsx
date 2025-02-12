@@ -20,11 +20,12 @@ const FavoritedItems = ({
                 className="border rounded-2xl overflow-hidden group grid grid-cols-[1fr_auto] justify-center items-stretch"
                 to={`/${redirect}/${item.slug}`}
               >
-                <div className="p-4 flex flex-col flex-1 flex justify-center items-start">
+                <div className="p-4 flex-col flex-1 flex justify-center items-start">
                   <h3 className="line-clamp-1 font-bold">{item.name}</h3>
                   <p className="line-clamp-2 text-sm text-muted-foreground">{item.description}</p>
                 </div>
                 <img
+                  alt="cover"
                   className="w-20 h-full object-cover group-hover:grayscale-0 grayscale duration-1000 transition"
                   src={item?.cover || ""}
                 />

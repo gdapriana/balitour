@@ -20,10 +20,10 @@ const StoryCard = ({ story }: { story: Story | undefined }) => {
         <p className="line-clamp-2 text-sm text-muted-foreground">{story?.description}</p>
         <div className="flex justify-end items-center mt-4 overflow-auto">
           <div className="hidden md:flex">
-            <UserBtn avatarOnly={false} isOpen={false} profile={story?.User?.profilePicture} className={{ root: "border" }} username={story?.username} />
+            <UserBtn avatarOnly={false} isOpen={false} profile={story?.user?.profilePicture} className={{ root: "border" }} username={story?.username} />
           </div>
           <div className="md:hidden flex">
-            <UserBtn isOpen={false} avatarOnly={false} profile={story?.User?.profilePicture} className={{ root: "border" }} username={story?.username} />
+            <UserBtn isOpen={false} avatarOnly={false} profile={story?.user?.profilePicture} className={{ root: "border" }} username={story?.username} />
           </div>
         </div>
       </div>

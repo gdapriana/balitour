@@ -10,6 +10,7 @@ const DestinationCard = ({ destination }: { destination: Destination }) => {
       to={`/destinations/${destination.slug}`}
     >
       <img
+        alt="cover"
         src={destination.cover || ""}
         className="aspect-video object-cover transition duration-300 grayscale group-hover:grayscale-0"
       />

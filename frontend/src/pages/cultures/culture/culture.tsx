@@ -71,14 +71,14 @@ const Culture = () => {
             <Header culture={culture} />
             <Action culture={culture} />
             <Body text={culture.body} />
-            {culture?._count.Images !== 0 && (
+            {culture?._count.images !== 0 && (
               <AdditionalImages
                 itemName={culture.name}
                 images={culture.images}
               />
             )}
-            {culture?._count.Source !== 0 && (
-              <Source sources={culture.Source} />
+            {culture?._count.sources !== 0 && (
+              <Source sources={culture.sources} />
             )}
             <Comment
               slug={culture.slug}

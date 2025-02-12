@@ -80,9 +80,9 @@ export interface Story {
     sources: number
     images: number
     users_comment_stories: number
-    users_likestories: number
-    users_savestories: number
-    users_viewstories: number
+    users_like_stories: number
+    users_save_stories: number
+    users_view_stories: number
   };
   users_comment_stories?: UsersCommentStories[];
   users_like_stories?: UsersLikeStories[];

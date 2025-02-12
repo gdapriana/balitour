@@ -29,7 +29,7 @@ const FavoritedStoriesMobile = ({ stories }: { stories: Story[] | undefined }) =
               )}
             >
               <Avatar>
-                <AvatarImage className="object-cover bg" src={story.User?.profilePicture} />
+                <AvatarImage className="object-cover bg" src={story.user?.profilePicture} />
                 <AvatarFallback>{story.username.charAt(0)}</AvatarFallback>
               </Avatar>
               {activeStory === index && (

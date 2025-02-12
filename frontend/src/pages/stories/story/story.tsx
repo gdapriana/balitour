@@ -74,10 +74,10 @@ const Story = () => {
             <Header story={story} />
             <Action story={story} />
             <Body text={story.body} />
-            {story?._count.Image !== 0 && (
-              <AdditionalImages itemName={story.name} images={story.Image} />
+            {story?._count.images !== 0 && (
+              <AdditionalImages itemName={story.name} images={story.images} />
             )}
-            {story?._count.Source !== 0 && <Source sources={story.Source} />}
+            {story?._count.sources !== 0 && <Source sources={story.sources} />}
             <Related
               culture={story?.relatedCulture}
               district={story?.relatedDistrict}

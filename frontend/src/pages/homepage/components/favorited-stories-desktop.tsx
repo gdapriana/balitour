@@ -34,7 +34,7 @@ const FavoritedStoriesDesktop = ({
               <Avatar>
                 <AvatarImage
                   className="object-cover bg-cover"
-                  src={story.User?.profilePicture}
+                  src={story.user?.profilePicture}
                 />
                 <AvatarFallback>{story.username.charAt(0)}</AvatarFallback>
               </Avatar>

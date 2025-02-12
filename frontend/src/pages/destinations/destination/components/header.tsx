@@ -15,11 +15,11 @@ const Header = ({ destination }: { destination: Destination | undefined }) => {
       <div className="flex flex-wrap justify-start my-4 items-center gap-2">
         <Button variant="outline" className="rounded-full">
           <Map />
-          {destination?.District?.name}
+          {destination?.district?.name}
         </Button>
         <Button variant="outline" className="rounded-full">
           <Layers2 />
-          {destination?.Category?.name}
+          {destination?.category?.name}
         </Button>
         <Button variant="outline" className="rounded-full">
           <Wallet />
