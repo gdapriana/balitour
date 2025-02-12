@@ -67,18 +67,18 @@ export interface Story {
   body: string;
   readingTime: number;
   username: string;
-  User?: User;
+  user?: User;
   relatedDestinationSlug?: string;
   relatedDestination?: Destination;
   relatedCultureSlug?: string;
   relatedCulture?: Culture;
   relatedDistrictSlug?: string;
   relatedDistrict?: District;
-  Source?: Source[];
-  Image?: Image[];
+  sources?: Source[];
+  images?: Image[];
   _count: {
-    Source: number
-    Image: number
+    sources: number
+    images: number
     users_comment_stories: number
     users_likestories: number
     users_savestories: number
@@ -103,15 +103,15 @@ export interface Destination {
   map: string;
   districtSlug?: string;
   categorySlug?: string;
-  District?: District;
-  Category?: Category;
-  Story?: Story[];
-  Source?: Source[];
-  Image?: Image[];
+  district?: District;
+  category?: Category;
+  stories?: Story[];
+  sources?: Source[];
+  images?: Image[];
   _count: {
-    Source: number
-    Story: number
-    Image: number
+    sources: number
+    stories: number
+    images: number
     users_comment_destinations: number
     users_like_destinations: number
     users_save_destinations: number
@@ -134,14 +134,14 @@ export interface Culture {
   cover: string;
   address?: string;
   districtSlug?: string;
-  District?: District;
-  Story?: Story[];
-  Source?: Source[];
+  district?: District;
+  stories?: Story[];
+  sources?: Source[];
   images?: Image[];
   _count: {
-    Source: number
-    Story: number
-    Images: number
+    sources: number
+    stories: number
+    images: number
     users_comment_cultures: number
     users_like_cultures: number
     users_save_cultures: number
@@ -160,7 +160,7 @@ export interface Category {
   slug: string;
   name: string;
   description?: string;
-  destination?: Destination[];
+  destinations?: Destination[];
 }
 
 export interface District {
@@ -175,7 +175,7 @@ export interface District {
   body?: string | null;
   destinations?: Destination[];
   cultures?: Culture[];
-  Story?: Story[];
+  stories?: Story[];
 }
 
 export interface Image {
@@ -186,9 +186,9 @@ export interface Image {
   cultureSlug?: string;
   destinationSlug?: string;
   storySlug?: string;
-  Culture?: Culture;
-  Destination?: Destination;
-  Story?: Story | null;
+  culture?: Culture;
+  destination?: Destination;
+  story?: Story;
 }
 
 export interface Source {

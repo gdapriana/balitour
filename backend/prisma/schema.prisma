@@ -164,7 +164,6 @@ model Image {
   @@map("images")
 }
 
-/////////PIVOT////////////////////////////////////////////////////////////
 model Source {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime  @default(now())
@@ -185,6 +184,8 @@ model Source {
 
   @@map("sources")
 }
+
+/////////PIVOT////////////////////////////////////////////////////////////
 
 model users_comment_stories {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
