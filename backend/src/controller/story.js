@@ -15,7 +15,6 @@ class StoryController {
   static async get(req, res, next) {
     try {
       const request = req.params.slug;
-      console.log(request);
       const response = await StoryService.get(request);
       res.status(200).json({ data: response });
     } catch (e) {
@@ -136,7 +135,7 @@ class StoryController {
       const response = await StoryService.userSavedStory(slug, username);
       res.status(200).json({ data: response });
     } catch (e) {
-      next(e)
+      next(e);
     }
   }
   static async liked(req, res, next) {
@@ -146,7 +145,7 @@ class StoryController {
       const response = await StoryService.userLikedStory(slug, username);
       res.status(200).json({ data: response });
     } catch (e) {
-      next(e)
+      next(e);
     }
   }
   static async viewed(req, res, next) {
@@ -156,11 +155,11 @@ class StoryController {
       const response = await StoryService.userViewedStory(slug, username);
       res.status(200).json({ data: response });
     } catch (e) {
-      next(e)
+      next(e);
     }
   }
   static async uploadCover(req, res) {
-    const {cover} = req.files;
+    const { cover } = req.files;
     if (!cover) {
       res.status(400).json({ status: 400, message: "Cover is required" });
     }
@@ -169,14 +168,15 @@ class StoryController {
       {
         public_id: new Date().getTime(),
         folder: "stories/cover",
-      }, (error, result) => {
+      },
+      (error, result) => {
         if (error) {
-          res.status(500).json({status: 500, message: "upload failed", error});
+          res.status(500).json({ status: 500, message: "upload failed", error });
         } else {
-          res.json({status: 200, message: "Success", result});
+          res.json({ status: 200, message: "Success", result });
         }
-      }
-    )
+      },
+    );
   }
 }
 export default StoryController;

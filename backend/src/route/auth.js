@@ -7,6 +7,7 @@ import StoryController from "../controller/story.js";
 import CultureController from "../controller/culture.js";
 import CategoryController from "../controller/category.js";
 import DistrictController from "../controller/district.js";
+import SourceController from "../controller/source.js";
 
 const authRouter = express.Router();
 authRouter.patch("/api/users/:username", authMiddleware, UserController.update);
@@ -69,5 +70,9 @@ authRouter.delete("/api/categories/:slug", authMiddleware, adminMiddleware, Cate
 authRouter.post("/api/districts", authMiddleware, adminMiddleware, DistrictController.create);
 authRouter.patch("/api/districts/:slug", authMiddleware, adminMiddleware, DistrictController.update);
 authRouter.delete("/api/districts/:slug", authMiddleware, adminMiddleware, DistrictController.delete);
+
+authRouter.post("/api/sources", authMiddleware, SourceController.create);
+authRouter.patch("/api/sources/:id", authMiddleware, SourceController.update);
+authRouter.delete("/api/sources/:id", authMiddleware, SourceController.delete);
 
 export default authRouter;
