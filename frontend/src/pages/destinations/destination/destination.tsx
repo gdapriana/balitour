@@ -68,8 +68,8 @@ const Destination = () => {
             <Header destination={destination} />
             <Action destination={destination} />
             <Map coordinates={destination.map} />
-            {destination?._count.Image !== 0 && <AdditionalImages itemName={destination.name} images={destination.Image} />}
-            {destination?._count.Source !== 0 && <Source sources={destination.Source} />}
+            {destination?._count.images !== 0 && <AdditionalImages itemName={destination.name} images={destination.images} />}
+            {destination?._count.sources !== 0 && <Source sources={destination.sources} />}
             <Comment
               slug={destination.slug}
               object="destinations"
