@@ -5,7 +5,6 @@ import ResponseError from "../error/response.js";
 import db from "../application/database.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import CultureValidation from "../validation/culture.js";
 dotenv.config();
 
 class UserService {

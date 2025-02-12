@@ -27,7 +27,7 @@ class CategoryService {
       where: { slug },
       include: {
         _count: true,
-        destination: true
+        destinations: true
       }
     })
     if (!category) throw new ResponseError(404, "category not found");
@@ -43,7 +43,7 @@ class CategoryService {
       },
       include: {
         _count: true,
-        destination: true
+        destinations: true
       },
       take: queries.count,
     });

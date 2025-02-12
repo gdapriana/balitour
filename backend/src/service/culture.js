@@ -1,5 +1,4 @@
 import validation from "../validation/validation.js";
-import DestinationValidation from "../validation/destination.js";
 import slugify from "slugify";
 import db from "../application/database.js";
 import ResponseError from "../error/response.js";
@@ -20,7 +19,7 @@ class CultureService {
       where: { slug: request },
       include: {
         _count: true,
-        District: true,
+        district: true,
         users_comment_cultures: {
           include: {
             user: { select: { username: true, profilePicture: true } },
@@ -29,9 +28,9 @@ class CultureService {
         users_like_cultures: true,
         users_save_cultures: true,
         users_view_cultures: true,
-        Source: true,
-        Story: true,
-        AdditionalImages: true,
+        sources: true,
+        stories: true,
+        images: true,
       },
     });
     if (!culture) throw new ResponseError(404, "culture not found");
@@ -64,7 +63,7 @@ class CultureService {
       },
       include: {
         _count: true,
-        District: true,
+        district: true,
       },
       take: queries.count,
     });
@@ -233,42 +232,39 @@ class CultureService {
       where: { slug },
     });
     if (!culture) throw new ResponseError(404, "culture not found");
-    const savedCulture = await db.users_save_cultures.findFirst({
+    const savedCulture = await db.users_save_cultures.count({
       where: {
         username,
         cultureSlug: slug,
       },
     });
-    if (!savedCulture) return false;
-    return true;
+    return savedCulture !== 0
   }
   static async userLikedCulture(slug, username) {
     const culture = await db.culture.findUnique({
       where: { slug },
     });
     if (!culture) throw new ResponseError(404, "culture not found");
-    const likedCulture = await db.users_like_cultures.findFirst({
+    const likedCulture = await db.users_like_cultures.count({
       where: {
         username,
         cultureSlug: slug,
       },
     });
-    if (!likedCulture) return false;
-    return true;
+    return likedCulture !== 0;
   }
   static async userViewedCulture(slug, username) {
     const culture = await db.culture.findUnique({
       where: { slug },
     });
     if (!culture) throw new ResponseError(404, "culture not found");
-    const viewedCulture = await db.users_view_cultures.findFirst({
+    const viewedCulture = await db.users_view_cultures.count({
       where: {
         username,
         cultureSlug: slug,
       },
     });
-    if (!viewedCulture) return false;
-    return true;
+    return viewedCulture !== 0;
   }
 }
 

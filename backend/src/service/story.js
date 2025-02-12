@@ -20,15 +20,15 @@ class StoryService {
       where: { slug },
       include: {
         _count: true,
-        User: true,
+        user: true,
         users_comment_stories: {
           include: {user: {select: {username: true, profilePicture: true}}}
         },
         users_like_stories: true,
         users_save_stories: true,
         users_view_stories: true,
-        Source: true,
-        Image: true,
+        sources: true,
+        images: true,
         relatedDestination:true,
         relatedCulture: true,
         relatedDistrict: true,
@@ -47,7 +47,7 @@ class StoryService {
       },
       include: {
         _count: true,
-        User: true
+        user: true
       },
       take: queries.count,
     })
@@ -64,7 +64,7 @@ class StoryService {
     })
   }
   static async delete(username, slug) {
-    const story = await db.story.findUnique({ where: { slug } });
+    const story = await db.story.findUnique({ where: { slug }});
     if (!story) throw new ResponseError(404, "story not found");
     if (story.username !== username) throw new ResponseError(401, "unauthorized");
     return db.story.delete({
@@ -204,39 +204,36 @@ class StoryService {
       where: { slug },
     })
     if (!story) throw new ResponseError(404, "story not found");
-    const savedStory = await db.users_save_stories.findFirst({
+    const savedStory = await db.users_save_stories.count({
       where: {
         username, storySlug: slug
       }
     })
-    if(!savedStory) return false;
-    return true
+    return savedStory !== 0
   }
   static async userLikedStory(slug, username) {
     const story = await db.story.findUnique({
       where: { slug },
     })
     if (!story) throw new ResponseError(404, "story not found");
-    const likedStory = await db.users_like_stories.findFirst({
+    const likedStory = await db.users_like_stories.count({
       where: {
         username, storySlug: slug
       }
     })
-    if(!likedStory) return false;
-    return true
+    return likedStory !== 0;
   }
   static async userViewedStory(slug, username) {
     const story = await db.story.findUnique({
       where: { slug },
     })
     if (!story) throw new ResponseError(404, "story not found");
-    const viewedStory = await db.users_view_stories.findFirst({
+    const viewedStory = await db.users_view_stories.count({
       where: {
         username, storySlug: slug
       }
     })
-    if(!viewedStory) return false;
-    return true
+    return viewedStory !== 0;
   }
 }
 

@@ -20,16 +20,16 @@ class DestinationService {
       include: {
         _count: true,
         users_save_destinations: true,
-        District: true,
-        Category: true,
+        category: true,
+        district: true,
         users_like_destinations: true,
         users_view_destinations: true,
         users_comment_destinations:{
           include: {user: {select: {username: true, profilePicture: true}}}
         },
-        Image: true,
-        Source: true,
-        Story: true
+        images: true,
+        sources: true,
+        stories: true
       },
     });
     if (!destination) throw new ResponseError(404, "destination not found");
@@ -73,8 +73,8 @@ class DestinationService {
       },
       include: {
         _count: true,
-        Category: true,
-        District: true,
+        category: true,
+        district: true,
         users_save_destinations: true
       },
       take: queries.count,
@@ -243,39 +243,36 @@ class DestinationService {
       where: { slug },
     })
     if (!destination) throw new ResponseError(404, "destination not found");
-    const savedDestination = await db.users_save_destinations.findFirst({
+    const savedDestination = await db.users_save_destinations.count({
       where: {
         username, destinationSlug: slug
       }
     })
-    if(!savedDestination) return false;
-    return true
+    return savedDestination !== 0;
   }
   static async userLikedDestination(slug, username) {
     const destination = await db.destination.findUnique({
       where: { slug },
     })
     if (!destination) throw new ResponseError(404, "destination not found");
-    const likedDestination = await db.users_like_destinations.findFirst({
+    const likedDestination = await db.users_like_destinations.count({
       where: {
         username, destinationSlug: slug
       }
     })
-    if(!likedDestination) return false;
-    return true
+    return likedDestination !== 0;
   }
   static async userViewedDestination(slug, username) {
     const destination = await db.destination.findUnique({
       where: { slug },
     })
     if (!destination) throw new ResponseError(404, "destination not found");
-    const viewedDestination = await db.users_view_destinations.findFirst({
+    const viewedDestination = await db.users_view_destinations.count({
       where: {
         username, destinationSlug: slug
       }
     })
-    if(!viewedDestination) return false;
-    return true
+    return viewedDestination !== 0;
   }
 }
 
