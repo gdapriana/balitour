@@ -56,7 +56,7 @@ const UserBtn = ({
         <DropdownMenuLabel>Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="cursor-pointer">
-          <Link to="/profile">
+          <Link to="/stories/create">
             <Plus />
             Post Story
           </Link>

@@ -24,7 +24,7 @@ const LogoutAlert = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="w-full">
+        <Button variant="ghost" className="w-full">
           <LogOut />
           Logout
         </Button>

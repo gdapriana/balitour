@@ -26,37 +26,34 @@ const Destination = () => {
   }, []);
 
   useEffect(() => {
-    async function getData() {
+    (async function () {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations/${slug}`)
         .then((res) => res.json())
         .then((data) => {
           setDestination(data.data);
           setLoading(false);
         });
-    }
-    getData().then();
+    })();
   }, [slug, setLoading]);
   useEffect(() => {
-    async function getData() {
+    (async function () {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/destinations?count=4`)
         .then((res) => res.json())
         .then((data) => {
           setFavoritedDestinations(data.data);
           setLoading(false);
         });
-    }
-    getData().then();
+    })();
   }, [setLoading]);
   useEffect(() => {
-    async function getData() {
+    (async function () {
       await fetch(`${import.meta.env.VITE_PUBLIC_API}/categories?count=8`)
         .then((res) => res.json())
         .then((data) => {
           setCategories(data.data);
           setLoading(false);
         });
-    }
-    getData().then();
+    })();
   }, [setLoading]);
 
   if (!destination) return <NotFound />;
