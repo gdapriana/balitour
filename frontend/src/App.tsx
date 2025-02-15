@@ -17,6 +17,7 @@ import Login from "@/pages/login/login.tsx";
 import Register from "@/pages/register/register.tsx";
 import Profile from "@/pages/profile/profile.tsx";
 import CreateStory from "@/pages/stories/create/create-story.tsx";
+import PrivateRoute from "@/components/ui/auth.tsx";
 
 function App() {
   const { loading } = useContext(LoadingContext);
@@ -41,10 +42,12 @@ function App() {
         <Route path="/cultures/:slug" element={<Culture />} />
         <Route path="/stories" element={<Stories />} />
         <Route path="/stories/:slug" element={<Story />} />
-        <Route path="/stories/create" element={<CreateStory />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/stories/create" element={<CreateStory />} />
+        </Route>
       </Routes>
       <Footer />
     </div>

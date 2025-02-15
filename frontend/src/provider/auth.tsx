@@ -5,8 +5,8 @@ import { LoadingContext } from "@/provider/loading.tsx";
 interface AuthContextType {
   user: User | null;
   setUser: Dispatch<SetStateAction<User | null>>;
-  authenticated: boolean;
-  setAuthenticated: Dispatch<SetStateAction<boolean>>;
+  authenticated: boolean | undefined;
+  setAuthenticated: Dispatch<SetStateAction<boolean | undefined>>;
   token: string | null;
   setToken: Dispatch<SetStateAction<string | null>>;
 }
@@ -22,7 +22,7 @@ const AuthContext = createContext<AuthContextType>({
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const [authenticated, setAuthenticated] = useState<boolean>();
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const { setLoading } = useContext(LoadingContext);
 

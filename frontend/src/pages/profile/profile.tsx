@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/provider/auth.tsx";
 import Header from "@/pages/profile/components/header.tsx";
@@ -11,11 +10,8 @@ import CultureCard from "@/components/ui/cultures-card.tsx";
 import Brand from "@/components/ui/brand.tsx";
 
 const Profile = () => {
-  const { authenticated, user } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const [activeSection, setActiveSection] = useState<"st" | "fd" | "fc" | "fs" | "ld" | "lc" | "ls">("st");
-
-  if (!authenticated) navigate("/login", { replace: true });
 
   return (
     <div>
