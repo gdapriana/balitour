@@ -50,7 +50,7 @@ model Story {
   name                   String
   slug                   String                  @unique
   description            String
-  cover                  String
+  cover                  String?
   body                   String
   readingTime            Int
   users_comment_stories  users_comment_stories[]

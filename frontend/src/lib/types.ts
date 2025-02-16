@@ -63,7 +63,7 @@ export interface Story {
   name: string;
   slug: string;
   description: string;
-  cover: string;
+  cover?: string;
   body: string;
   readingTime: number;
   username: string;

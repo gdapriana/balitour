@@ -67,34 +67,24 @@ const Story = () => {
 
   return (
     <div>
-      <Hero cover={story.cover} />
+      <Hero cover={story?.cover || import.meta.env.VITE_PUBLIC_COVER} />
       <div className="w-full mt-8 flex justify-center items-center">
         <div className="w-full max-w-5xl p-4 lg:flex lg:justify-center lg:items-start gap-8">
           <div className="w-full gap-8 lg:w-2/3 flex flex-col justify-start items-stretch">
             <Header story={story} />
             <Action story={story} />
             <Body text={story.body} />
-            {story?._count.images !== 0 && (
-              <AdditionalImages itemName={story.name} images={story.images} />
-            )}
+            {story?._count.images !== 0 && <AdditionalImages itemName={story.name} images={story.images} />}
             {story?._count.sources !== 0 && <Source sources={story.sources} />}
             <Related
               culture={story?.relatedCulture}
               district={story?.relatedDistrict}
               destination={story?.relatedDestination}
             />
-            <Comment
-              slug={story.slug}
-              object="stories"
-              itemName={story.name}
-              comments={story.users_comment_stories}
-            />
+            <Comment slug={story.slug} object="stories" itemName={story.name} comments={story.users_comment_stories} />
           </div>
           <div className="hidden flex-col gap-8 justify-start items-stretch lg:flex w-1/3">
-            <FavoritedItems
-              items={favoritedStories?.filter((story) => story.slug !== slug)}
-              redirect={"Stories"}
-            />
+            <FavoritedItems items={favoritedStories?.filter((story) => story.slug !== slug)} redirect={"Stories"} />
             <Categories categories={categories} />
           </div>
         </div>

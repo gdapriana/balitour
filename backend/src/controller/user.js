@@ -8,7 +8,7 @@ class UserController {
       const response = await UserService.create(request);
       res.status(200).json({ data: response });
     } catch (e) {
-      next(e)
+      next(e);
     }
   }
   static async register(req, res, next) {
@@ -35,7 +35,7 @@ class UserController {
       const response = await UserService.get(username);
       res.status(200).json({ data: response });
     } catch (e) {
-      next(e)
+      next(e);
     }
   }
   static async gets(req, res, next) {
@@ -63,7 +63,7 @@ class UserController {
       const response = await UserService.update(request, username);
       return res.status(200).json({ data: response });
     } catch (e) {
-      next(e)
+      next(e);
     }
   }
   static async logout(req, res, next) {
@@ -89,12 +89,11 @@ class UserController {
       const response = await UserService.verify(username);
       res.status(200).json({ data: response });
     } catch (e) {
-      next(e)
+      next(e);
     }
   }
   static async uploadProfileImage(req, res) {
-    console.log({reqfelss: req.files});
-    const {photo} = req.files;
+    const { photo } = req.files;
     if (!photo) {
       res.status(400).json({ status: 400, message: "Profile Image is required" });
     }
@@ -103,14 +102,15 @@ class UserController {
       {
         public_id: new Date().getTime(),
         folder: "profile",
-      }, (error, result) => {
+      },
+      (error, result) => {
         if (error) {
-          res.status(500).json({status: 500, message: "upload failed", error});
+          res.status(500).json({ status: 500, message: "upload failed", error });
         } else {
-          res.json({status: 200, message: "Success", result});
+          res.json({ status: 200, message: "Success", result });
         }
-      }
-    )
+      },
+    );
   }
 }
 
