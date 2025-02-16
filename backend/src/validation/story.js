@@ -4,9 +4,12 @@ class StoryValidation {
   static CREATE = z.object({
     name: z.string().min(4).max(200),
     description: z.string().min(10).max(400),
-    cover: z.string().url().min(4),
+    cover: z.string().url().min(4).optional(),
     body: z.string().min(20).max(1000),
     readingTime: z.number().nonnegative(),
+    relatedDestinationSlug: z.string().min(1).or(z.null()).optional(),
+    relatedCultureSlug: z.string().min(1).or(z.null()).optional(),
+    relatedDistrictSlug: z.string().min(1).or(z.null()).optional(),
   });
   static GETS = z.object({
     count: z.number().min(1).optional(),

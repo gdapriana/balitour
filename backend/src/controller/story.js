@@ -6,7 +6,8 @@ class StoryController {
   static async create(req, res, next) {
     try {
       const request = req.body;
-      const response = await StoryService.create(request);
+      const username = req.username;
+      const response = await StoryService.create(request, username);
       res.status(200).json({ data: response });
     } catch (e) {
       next(e);

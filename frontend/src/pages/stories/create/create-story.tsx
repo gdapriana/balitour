@@ -6,7 +6,7 @@ import Cover from "@/pages/stories/create/components/cover.tsx";
 import { Button } from "@/components/ui/button.tsx";
 
 const CreateStory = () => {
-  const { user } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
   const [name, setName] = useState<string>("welcome to black paradise");
   const [description, setDescription] = useState<string>(
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa doloremque fuga illum, molestias neque perferendis quas recusandae reiciendis rerum ullam! Architecto dolore ex fugiat molestiae nihil odit quas reprehenderit tempore.",
@@ -16,23 +16,64 @@ const CreateStory = () => {
     "<p><h3>Hello World</h3><br>My Name is i Komang Gede Apriana, im from bali indonesia</p>",
   );
   const [readingTime, setReadingTime] = useState<number>(5);
-  const [relatedDestinationSlug, setRelatedDestinationSlug] = useState<string>("");
-  const [relatedCultureSlug, setRelatedCultureSlug] = useState<string>();
-  const [relatedDistrictSlug, setRelatedDistrictSlug] = useState<string>();
+  const [relatedDestinationSlug, setRelatedDestinationSlug] = useState<string>("uluwatu-temple");
+  const [relatedCultureSlug, setRelatedCultureSlug] = useState<string>("nyepi");
+  const [relatedDistrictSlug, setRelatedDistrictSlug] = useState<string>("gianyar");
   const [relatedDestinationQuery, setRelatedDestinationQuery] = useState<string>();
   const [relatedCultureQuery, setRelatedCultureQuery] = useState<string>();
   const [relatedDistrictQuery, setRelatedDistrictQuery] = useState<string>();
-  const [soures, setSoures] = useState<Source[]>();
+  const [sources, setSoures] = useState<Source[]>();
   const [images, setImages] = useState<Image[]>();
 
-  const onSubmitHandle = (e: any) => {
+  const onSubmitHandle = async (e: any) => {
     e.preventDefault();
+    setSoures([{ name: "sources-1" }, { name: "sources-2" }]);
+    setImages([
+      {
+        url: "https://images.unsplash.com/photo-1559305289-4c31700ba9cb?q=80&w=2826&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1557093793-e196ae071479?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      },
+    ]);
 
     // 1. get cover link
     // 2. get related item slug
     // 3. post new stories
-    // 4. post new sources with storySlug
-    // 5. post new images with storySlug
+    try {
+      const response = await fetch(`${import.meta.env.VITE_PUBLIC_API}/stories`, {
+        method: "POST",
+        headers: {
+          Authorization: token!,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          description,
+          body,
+          readingTime,
+          relatedDestinationSlug,
+          relatedDistrictSlug,
+          relatedCultureSlug,
+        }),
+      });
+      if (response.ok) {
+        const slug = await response.json();
+        // 4. post new sources with storySlug
+        if (sources) {
+          for (const source of sources) {
+            await fetch(`${import.meta.env.VITE_PUBLIC_API}/sources`, {
+              method: "POST",
+              headers: { Authorization: token!, "Content-Type": "application/json" },
+              body: JSON.stringify({ ...source, storySlug: slug.data.slug }),
+            });
+          }
+        }
+        // 5. post new images with storySlug
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

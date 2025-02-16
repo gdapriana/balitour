@@ -3,12 +3,12 @@ import { z } from "zod";
 class SourceValidation {
   static CREATE = z.object({
     name: z.string().min(5),
-    citationNum: z.number().or(z.null()),
-    year: z.string().or(z.null()),
-    publisher: z.string().or(z.null()),
-    doi: z.string().url().or(z.null()),
-    weblink: z.string().url().or(z.null()),
-    accessed: z.string().date(),
+    citationNum: z.number().or(z.null()).optional(),
+    year: z.string().or(z.null()).optional(),
+    publisher: z.string().or(z.null()).optional(),
+    doi: z.string().url().or(z.null()).optional(),
+    weblink: z.string().url().or(z.null()).optional(),
+    accessed: z.string().date().optional(),
     storySlug: z.string().or(z.null()).optional(),
     destinationSlug: z.string().or(z.null()).optional(),
     cultureSlug: z.string().or(z.null()).optional(),

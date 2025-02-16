@@ -179,9 +179,9 @@ export interface District {
 }
 
 export interface Image {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  id?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
   url: string;
   cultureSlug?: string;
   destinationSlug?: string;
@@ -192,9 +192,9 @@ export interface Image {
 }
 
 export interface Source {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  id?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
   citationNum?: number;
   name: string;
   year?: string;
