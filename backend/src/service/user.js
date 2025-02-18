@@ -55,7 +55,7 @@ class UserService {
         users_save_cultures: true,
         users_save_destinations: true,
         users_save_stories: true,
-      }
+      },
     });
     if (!user) throw new ResponseError(404, "user not found");
     return user;
@@ -69,23 +69,23 @@ class UserService {
           { username: { contains: queries.username, mode: "insensitive" } },
         ],
       },
-      include : {
-        _count: true
+      include: {
+        _count: true,
       },
       take: queries.count,
-    })
+    });
   }
   static async update(req, username) {
     const request = validation(UserValidation.UPDATE, req);
-    const user = await db.user.findUnique({where: {username}})
+    const user = await db.user.findUnique({ where: { username } });
     if (!user) throw new ResponseError(401, "user not found");
     return db.user.update({
       where: { username },
-      data:  request,
+      data: request,
       select: {
-        username: true
-      }
-    })
+        username: true,
+      },
+    });
   }
   static async logout(username) {
     const user = await db.user.findUnique({ where: { username } });
@@ -97,7 +97,7 @@ class UserService {
     });
   }
   static async delete(username) {
-    const user = await db.user.findUnique({where: { username }});
+    const user = await db.user.findUnique({ where: { username } });
     if (!user) throw new ResponseError(404, "user not found");
     await db.user.delete({ where: { username } });
   }
@@ -106,14 +106,24 @@ class UserService {
       where: { username },
       include: {
         _count: true,
-        stories: true,
-        users_save_stories: {select: {story: {include: {_count: true}}}},
-        users_save_destinations: {select: {destination: {include: {_count: true}}}},
-        users_save_cultures: {select: {culture: {include: {_count: true}}}},
-        users_like_destinations: {select: {destination: {include: {_count: true}}}},
-        users_like_cultures: {select: {culture: {include: {_count: true}}}},
-        users_like_stories: {select: {story: {include: {_count: true}}}},
-      }
+        stories: {
+          include: {
+            user: {
+              select: { username: true, profilePicture: true },
+            },
+          },
+        },
+        users_save_stories: {
+          select: { story: { include: { _count: true, user: { select: { username: true, profilePicture: true } } } } },
+        },
+        users_save_destinations: { select: { destination: { include: { _count: true } } } },
+        users_save_cultures: { select: { culture: { include: { _count: true } } } },
+        users_like_destinations: { select: { destination: { include: { _count: true } } } },
+        users_like_cultures: { select: { culture: { include: { _count: true } } } },
+        users_like_stories: {
+          select: { story: { include: { _count: true, user: { select: { username: true, profilePicture: true } } } } },
+        },
+      },
     });
   }
 }

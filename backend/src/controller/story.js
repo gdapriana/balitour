@@ -53,7 +53,8 @@ class StoryController {
   static async delete(req, res, next) {
     try {
       const request = req.params.slug;
-      const response = await StoryService.delete(request);
+      const username = req.username;
+      const response = await StoryService.delete(username, request);
       res.status(200).json({ data: response });
     } catch (e) {
       next(e);
